@@ -22,6 +22,8 @@ import android.view.View;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.android.volley.Response;
+
 public class SignUpActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,5 +31,9 @@ public class SignUpActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
     }
+
+
+
+
 
 }
