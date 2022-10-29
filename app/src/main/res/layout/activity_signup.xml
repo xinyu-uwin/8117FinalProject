@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/weather_background"
+
+    android:padding="10dp">
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+
+        android:layout_weight="1"
+        app:srcCompat="@android:drawable/btn_dialog" />
+
+    <TextView
+        android:id="@+id/sign_up_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInparent="true"
+        android:layout_below="@id/back"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Please sign up your new account."
+        android:textSize="16dp"/>
+
+    <TextView
+        android:id="@+id/email_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInparent="true"
+        android:layout_below="@id/sign_up_tip"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="E-mail:"
+        android:textSize="16dp"/>
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInparent="true"
+        android:layout_below="@id/sign_up_tip"
+        android:layout_toRightOf="@id/email_title"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Test@test.com"
+        android:textSize="16dp"/>
+
+    <TextView
+        android:id="@+id/password_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInparent="true"
+        android:layout_below="@id/email_title"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Password:"
+        android:textSize="16dp"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@id/email_title"
+        android:layout_toRightOf="@id/password_title"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:textSize="16dp"
+        android:background="@color/cardview_light_background"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/set_home_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInparent="true"
+        android:layout_below="@id/password_title"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Please set your home information:"
+        android:textSize="16dp"/>
+
+    <TextView
+        android:id="@+id/username_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInparent="true"
+        android:layout_below="@id/set_home_tip"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Your name:"
+        android:textSize="16dp"/>
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@id/set_home_tip"
+        android:layout_toRightOf="@id/username_title"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:textSize="16dp"
+        android:background="@color/cardview_light_background" />
+    <TextView
+        android:id="@+id/city_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInparent="true"
+        android:layout_below="@id/username_title"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="City:"
+        android:textSize="16dp"/>
+
+
+    <EditText
+        android:id="@+id/city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@id/username_title"
+        android:layout_toRightOf="@id/city_title"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:textSize="16dp"
+        android:background="@color/cardview_light_background" />
+
+    <TextView
+        android:id="@+id/set_room_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInparent="true"
+        android:layout_below="@id/city_title"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Please set your first room:"
+        android:textSize="16dp"/>
+
+    <TextView
+        android:id="@+id/roomname_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInparent="true"
+        android:layout_below="@id/set_room_tip"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Room name:"
+        android:textSize="16dp"/>
+
+    <EditText
+        android:id="@+id/roomname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@id/set_room_tip"
+        android:layout_toRightOf="@id/roomname_title"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:textSize="16dp"
+        android:background="@color/cardview_light_background" />
+    <TextView
+        android:id="@+id/temp_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInparent="true"
+        android:layout_below="@id/roomname_title"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Prefer temprature:"
+        android:textSize="16dp"/>
+
+
+    <EditText
+        android:id="@+id/temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="5"
+        android:layout_below="@id/roomname_title"
+        android:layout_toRightOf="@id/temp_title"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:textSize="16dp"
+        android:background="@color/cardview_light_background" />
+
+    <TextView
+        android:id="@+id/set_alarm_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInparent="true"
+        android:layout_below="@id/temp_title"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Please set alarm for this room:"
+        android:textSize="16dp"/>
+
+    <TextView
+        android:id="@+id/weekday_alarm_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInparent="true"
+        android:layout_below="@id/set_alarm_tip"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Weekday:"
+        android:textSize="16dp"/>
+
+    <EditText
+        android:id="@+id/weekday_alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="5"
+        android:layout_below="@id/set_alarm_tip"
+        android:layout_toRightOf="@id/weekday_alarm_title"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:textSize="16dp"
+        android:background="@color/cardview_light_background" />
+    <TextView
+        android:id="@+id/weekend_alarm_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInparent="true"
+        android:layout_below="@id/weekday_alarm_title"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Weekend:"
+        android:textSize="16dp"/>
+
+
+    <EditText
+        android:id="@+id/weekend_alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="5"
+        android:layout_below="@id/weekday_alarm_title"
+        android:layout_toRightOf="@id/weekend_alarm_title"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:textSize="16dp"
+        android:background="@color/cardview_light_background" />
+
+    <Button
+        android:id="@+id/sign_up_complete"
+        android:layout_width="128dp"
+        android:layout_height="36dp"
+        android:layout_below="@id/weekend_alarm_title"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/quantum_black_100"
+        android:text="Complete"
+        android:textColor="@color/quantum_white_100"
+        android:textSize="16dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        />
+
+
+
+
+
+</RelativeLayout>
