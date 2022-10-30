@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources><declare-styleable name="UrAgreementTextView">
+    <attr name="agreementContext" format="string" />
+    <attr name="agreementHintText" format="string" />
+    <attr name="agreementsId" format="integer|reference" />
+    <attr name="agreementContextColor" format="color|reference" />
+    <attr name="agreementHintColor" format="color|reference" />
+    <attr name="agreementsColor" format="color|reference" />
+    <attr name="isChecked" format="boolean" />
+    <attr name="agreementCheckedId" format="reference" />
+    <attr name="agreementUnCheckedId" format="reference" />
+</declare-styleable></resources>
