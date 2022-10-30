@@ -67,7 +67,9 @@
         android:layout_marginStart="16dp"
         android:textSize="16sp"
         android:background="@color/cardview_light_background"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:hint="8-18 characters"
+        android:textColorHint="@color/quantum_bluegrey200"/>
 
     <TextView
         android:id="@+id/set_home_tip"
