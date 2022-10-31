@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,8 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.8117FinalProject"
         tools:targetApi="31">
+
+
         <meta-data
-            android:name="com.google.android.actions"></meta-data>
+            android:name="com.google.android.actions"
+            android:value=""
+            >
+            </meta-data>
 
 
         <activity
@@ -23,9 +29,7 @@
         </activity>
         <activity
             android:name=".SignUpActivity"
-            android:lable="SignUp"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,9 +38,6 @@
         </activity>
     </application>
 
-    <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-        <background android:drawable="@color/ic_launcher_background" />
-        <foreground android:drawable="@mipmap/ic_launcher_foreground" />
-    </adaptive-icon>
+
 
 </manifest>

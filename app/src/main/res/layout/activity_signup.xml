@@ -22,7 +22,7 @@
         android:layout_below="@id/back"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        android:text="Please sign up your new account."
+        android:text="@string/sign_up_tip"
         android:textSize="16sp"/>
 
     <TextView
@@ -69,6 +69,7 @@
         android:background="@color/cardview_light_background"
         android:inputType="textPassword"
         android:hint="8-18 characters"
+        android:lines="1"
         android:textColorHint="@color/quantum_bluegrey200"/>
 
     <TextView
@@ -78,7 +79,7 @@
         android:layout_below="@id/password_title"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        android:text="Please set your home information:"
+        android:text="@string/new_home_tip"
         android:textSize="16sp"/>
 
     <TextView
@@ -101,6 +102,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:textSize="16sp"
+        android:lines="1"
         android:background="@color/cardview_light_background" />
     <TextView
         android:id="@+id/city_title"
@@ -123,6 +125,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:textSize="16sp"
+        android:lines="1"
         android:background="@color/cardview_light_background" />
 
     <TextView
@@ -132,7 +135,7 @@
         android:layout_below="@id/city_title"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        android:text="Please set your first room:"
+        android:text="@string/new_room_tip"
         android:textSize="16sp"/>
 
     <TextView
@@ -155,6 +158,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:textSize="16sp"
+        android:lines="1"
         android:background="@color/cardview_light_background" />
     <TextView
         android:id="@+id/temp_title"
@@ -177,7 +181,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:textSize="16sp"
-        android:background="@color/cardview_light_background" />
+        android:lines="1"
+        android:background="@color/cardview_light_background"
+        android:hint="16-30"
+        android:textColorHint="@color/quantum_bluegrey200"/>
 
     <TextView
         android:id="@+id/set_alarm_tip"
@@ -186,7 +193,7 @@
         android:layout_below="@id/temp_title"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        android:text="Please set alarm for this room:"
+        android:text="@string/alarm_tip"
         android:textSize="16sp"/>
 
     <TextView
@@ -208,7 +215,8 @@
         android:layout_toEndOf="@id/weekday_alarm_title"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        android:textSize="16dp"
+        android:textSize="16sp"
+        android:lines="1"
         android:background="@color/cardview_light_background" />
     <TextView
         android:id="@+id/weekend_alarm_title"
@@ -229,8 +237,9 @@
         android:layout_below="@id/weekday_alarm_title"
         android:layout_toEndOf="@id/weekend_alarm_title"
         android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:textSize="16sp"
+        android:lines="1"
         android:background="@color/cardview_light_background" />
 
     <Button

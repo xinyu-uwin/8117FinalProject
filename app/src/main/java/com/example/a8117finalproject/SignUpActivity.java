@@ -1,6 +1,7 @@
 package com.example.a8117finalproject;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,17 +12,20 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Length;
 
+import java.io.IOException;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 
 public class SignUpActivity extends Activity implements Validator.ValidationListener{
 
 
-    @BindView(R.id.password)
-    @Length(min = 8, max = 18)
-    EditText password;
+
 
 
 
@@ -31,7 +35,7 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        ButterKnife.bind(this);
+
 
 
 
@@ -59,7 +63,21 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
             @Override
             public void onClick(View v) {
                 //响应事件
-                validator.validate();
+                //validator.validate();
+               OkHttpClient client = new OkHttpClient().newBuilder()
+                        .build();
+                MediaType mediaType = MediaType.parse("text/plain");
+                RequestBody body = RequestBody.create(mediaType, "{\n    \"username\": \"sam@gmail.com\",\n    \"password\": \"123\",\n    \"location\": \"windsor,canada\",\n    \"alarm_time_weekday\": \"07:00\",\n    \"alarm_time_weekend\": \"09:00\",\n    \"preferred_temp\": 22,\n    \"name\": \"nav\"\n}");
+                Request request = new Request.Builder()
+                        .url("https://final-project-team-1-section-1.herokuapp.com/user/register")
+                        .method("POST", body)
+                        .build();
+                try {
+                    Response response = client.newCall(request).execute();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
         };

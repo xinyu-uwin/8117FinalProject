@@ -1,4 +1,8 @@
 <resources>
-    <string name="app_name">Weather info</string>
+    <string name="app_name">Weather up</string>
     <string name="enter_your_city_name">Enter Your City Name</string>
+    <string name="sign_up_tip">Please sign up your new account.</string>
+    <string name="new_home_tip">Please set your home information:</string>
+    <string name="new_room_tip">Please set your first room:</string>
+    <string name="alarm_tip">Please set alarm for this room:</string>
 </resources>
