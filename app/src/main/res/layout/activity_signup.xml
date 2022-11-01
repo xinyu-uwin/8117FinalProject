@@ -175,7 +175,7 @@
         android:id="@+id/temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="5"
+        android:ems="10"
         android:layout_below="@id/roomname_title"
         android:layout_toEndOf="@id/temp_title"
         android:layout_marginTop="16dp"
@@ -183,7 +183,7 @@
         android:textSize="16sp"
         android:lines="1"
         android:background="@color/cardview_light_background"
-        android:hint="16-30"
+        android:hint="set between 16-30"
         android:textColorHint="@color/quantum_bluegrey200"/>
 
     <TextView
@@ -195,6 +195,16 @@
         android:layout_marginStart="16dp"
         android:text="@string/alarm_tip"
         android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/test_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sign_up_complete"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:text="test tip"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/weekday_alarm_title"
@@ -217,6 +227,8 @@
         android:layout_marginStart="16dp"
         android:textSize="16sp"
         android:lines="1"
+        android:hint="hh:mm"
+        android:textColorHint="@color/quantum_bluegrey200"
         android:background="@color/cardview_light_background" />
     <TextView
         android:id="@+id/weekend_alarm_title"
@@ -239,6 +251,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:textSize="16sp"
+        android:hint="hh:mm"
+        android:textColorHint="@color/quantum_bluegrey200"
         android:lines="1"
         android:background="@color/cardview_light_background" />
 
