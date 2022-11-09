@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/text2">
+
+
+
+    <EditText
+        android:id="@+id/temp"
+        android:layout_width="494dp"
+        android:layout_height="72dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center_vertical|left"
+        android:padding="18dp"
+        android:textSize="21dp"
+        android:textColor="@color/text1"
+        android:hint="Preferred Temperature"
+        android:textColorHint="@color/text1"
+        android:background="@drawable/textrec"
+        />
+
+
+    <TextView
+        android:id="@+id/set_alarm_tip"
+        android:layout_width="494dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:paddingLeft="5dp"
+        android:textSize="21dp"
+        android:textColor="@color/text1"
+        android:text="Alarm Preference"
+        android:layout_below="@id/temp" />
+
+    <EditText
+        android:id="@+id/weekday_alarm"
+        android:layout_width="494dp"
+        android:layout_height="72dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical|left"
+        android:padding="18dp"
+        android:textSize="21dp"
+        android:textColor="@color/text1"
+        android:hint="Weekday HH:MM"
+        android:textColorHint="@color/text1"
+        android:background="@drawable/textrec"
+        android:layout_below="@id/set_alarm_tip" />
+    <EditText
+        android:id="@+id/weekend_alarm"
+        android:layout_width="494dp"
+        android:layout_height="72dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center_vertical|left"
+        android:padding="18dp"
+        android:textSize="21dp"
+        android:textColor="@color/text1"
+        android:hint="Weekend HH:MM"
+        android:textColorHint="@color/text1"
+        android:background="@drawable/textrec"
+        android:layout_below="@id/weekday_alarm" />
+
+    <Button
+        android:id="@+id/saveroomsettings"
+        android:layout_width="494dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:padding="18dp"
+        android:textSize="21dp"
+        android:background="#5F82A2"
+        android:text="Save Room Changes"
+        android:textColor="@color/text2"
+        android:layout_below="@id/weekend_alarm"
+        />
+
+    <Button
+        android:id="@+id/deleteroom"
+        android:layout_width="494dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:padding="18dp"
+        android:textSize="21dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/warnrec"
+        android:text="Delete Room"
+        android:textColor="@color/waringbutton"
+        android:layout_below="@id/saveroomsettings"
+        />
+
+</RelativeLayout>

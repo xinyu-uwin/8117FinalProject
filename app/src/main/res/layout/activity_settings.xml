@@ -1,265 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/quantum_bluegrey50"
-
+    android:background="@color/bg"
     android:padding="10dp">
 
-    <TextView
-        android:id="@+id/settings_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="Settings"
-        android:textSize="16sp"/>
+    <ImageButton
+        android:id="@+id/logout"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentRight="true"
+
+        app:srcCompat="@android:drawable/btn_dialog"
+        android:contentDescription="Log out" />
+
+
 
     <TextView
-        android:id="@+id/email_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sign_up_tip"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="E-mail:"
-        android:textSize="16sp"/>
-
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sign_up_tip"
-        android:layout_toEndOf="@id/email_title"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="Test@test.com"
-        android:textSize="16sp"/>
-
-    <TextView
-        android:id="@+id/password_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/email_title"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="Password:"
-        android:textSize="16sp"/>
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_below="@id/email_title"
-        android:layout_toEndOf="@id/password_title"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:textSize="16sp"
-        android:background="@color/cardview_light_background"
-        android:inputType="textPassword"
-        android:hint="8-18 characters"
-        android:lines="1"
-        android:textColorHint="@color/quantum_bluegrey200"/>
-
-    <TextView
-        android:id="@+id/set_home_tip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/password_title"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="@string/new_home_tip"
-        android:textSize="16sp"/>
-
-    <TextView
-        android:id="@+id/username_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/set_home_tip"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="Your name:"
-        android:textSize="16sp"/>
-
-    <EditText
         android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_below="@id/set_home_tip"
-        android:layout_toEndOf="@id/username_title"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:textSize="16sp"
-        android:lines="1"
-        android:background="@color/cardview_light_background" />
-    <TextView
-        android:id="@+id/city_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/username_title"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="City:"
-        android:textSize="16sp"/>
+        android:layout_width="494dp"
+        android:layout_height="72dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center_vertical|left"
+        android:padding="18dp"
+        android:textSize="21dp"
+        android:textColor="@color/text1"
+        android:background="@drawable/textrec"
+        android:layout_below="@id/logout"
+        android:text="@string/test_test_com" />
+
+
+
+    <EditText
+        android:id="@+id/homename"
+        android:layout_width="494dp"
+        android:layout_height="72dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center_vertical|left"
+        android:padding="18dp"
+        android:textSize="21dp"
+        android:textColor="@color/text1"
+        android:hint="Home name"
+        android:textColorHint="@color/text1"
+        android:background="@drawable/textrec"
+        android:layout_below="@id/username" />
+
 
 
     <EditText
         android:id="@+id/city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_below="@id/username_title"
-        android:layout_toEndOf="@id/city_title"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:textSize="16sp"
-        android:lines="1"
-        android:background="@color/cardview_light_background" />
+        android:layout_width="494dp"
+        android:layout_height="72dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center_vertical|left"
+        android:padding="18dp"
+        android:textSize="21dp"
+        android:textColor="@color/text1"
+        android:hint="City of Residence(eg Windsor)"
+        android:textColorHint="@color/text1"
+        android:background="@drawable/textrec"
+        android:layout_below="@id/homename" />
 
-    <TextView
-        android:id="@+id/set_room_tip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/city_title"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="@string/new_room_tip"
-        android:textSize="16sp"/>
-
-    <TextView
-        android:id="@+id/roomname_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/set_room_tip"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="Room name:"
-        android:textSize="16sp"/>
-
-    <EditText
-        android:id="@+id/roomname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_below="@id/set_room_tip"
-        android:layout_toEndOf="@id/roomname_title"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:textSize="16sp"
-        android:lines="1"
-        android:background="@color/cardview_light_background" />
-    <TextView
-        android:id="@+id/temp_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/roomname_title"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="Prefer temprature:"
-        android:textSize="16sp"/>
-
-
-    <EditText
-        android:id="@+id/temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_below="@id/roomname_title"
-        android:layout_toEndOf="@id/temp_title"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:textSize="16sp"
-        android:lines="1"
-        android:background="@color/cardview_light_background"
-        android:hint="set between 16-30"
-        android:textColorHint="@color/quantum_bluegrey200"/>
-
-    <TextView
-        android:id="@+id/set_alarm_tip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/temp_title"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="@string/alarm_tip"
-        android:textSize="16sp"/>
+    <Button
+        android:id="@+id/savehomesettings"
+        android:layout_width="494dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:padding="18dp"
+        android:textSize="21dp"
+        android:background="#5F82A2"
+        android:text="Save Home Changes"
+        android:textColor="@color/text2"
+        android:layout_below="@id/city"
+        />
 
     <TextView
         android:id="@+id/test_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/sign_up_complete"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
-        android:text="test tip"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/weekday_alarm_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/set_alarm_tip"
+        android:layout_below="@id/savehomesettings"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        android:text="Weekday:"
+        android:text="test"
         android:textSize="16sp"/>
 
-    <EditText
-        android:id="@+id/weekday_alarm"
-        android:layout_width="wrap_content"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/roomTab"
+        app:tabTextColor="@color/colorAccent"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabIndicatorColor="@color/colorAccent"
+        app:tabMode="fixed"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="5"
-        android:layout_below="@id/set_alarm_tip"
-        android:layout_toEndOf="@id/weekday_alarm_title"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:textSize="16sp"
-        android:lines="1"
-        android:hint="hh:mm"
-        android:textColorHint="@color/quantum_bluegrey200"
-        android:background="@color/cardview_light_background" />
-    <TextView
-        android:id="@+id/weekend_alarm_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/weekday_alarm_title"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="Weekend:"
-        android:textSize="16sp"/>
+        android:layout_below="@+id/test_tip">
 
 
-    <EditText
-        android:id="@+id/weekend_alarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="5"
-        android:layout_below="@id/weekday_alarm_title"
-        android:layout_toEndOf="@id/weekend_alarm_title"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:textSize="16sp"
-        android:hint="hh:mm"
-        android:textColorHint="@color/quantum_bluegrey200"
-        android:lines="1"
-        android:background="@color/cardview_light_background" />
 
-    <Button
-        android:id="@+id/sign_up_complete"
-        android:layout_width="128dp"
-        android:layout_height="36dp"
-        android:layout_below="@id/weekend_alarm_title"
-        android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true"
-        android:background="@color/quantum_black_100"
-        android:text="Complete"
-        android:textColor="@color/quantum_white_100"
-        android:textSize="16sp"
-        android:textAlignment="center"
-        android:gravity="center"
-        />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
 </RelativeLayout>
+</ScrollView>

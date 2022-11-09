@@ -15,6 +15,9 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -88,7 +91,6 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
             @Override
             public void onClick(View v) {
                 validator.validate();
-
             }
         });
 
@@ -110,12 +112,16 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            String responseData = response.body().string();
+            JSONObject responseData = new JSONObject(response.body().string());
             etTest = findViewById(R.id.test_tip);
-            etTest.setText(responseData);
+            etTest.setText(responseData.toString());
+
+            //responseData.getJSONObject();
 
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
