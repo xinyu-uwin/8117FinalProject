@@ -5,44 +5,42 @@
     android:background="@color/text2">
 
 
-
     <EditText
         android:id="@+id/temp"
-        android:layout_width="494dp"
-        android:layout_height="72dp"
+        android:layout_width="450dp"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:gravity="center_vertical|left"
-        android:padding="18dp"
-        android:textSize="21dp"
-        android:textColor="@color/text1"
-        android:hint="Preferred Temperature"
-        android:textColorHint="@color/text1"
+        android:layout_marginTop="10dp"
         android:background="@drawable/textrec"
-        />
+        android:gravity="center_vertical|left"
+        android:hint="Preferred Temperature"
+        android:padding="10dp"
+        android:textColor="@color/text1"
+        android:textColorHint="@color/text1"
+        android:textSize="18sp" />
 
 
     <TextView
         android:id="@+id/set_alarm_tip"
-        android:layout_width="494dp"
+        android:layout_width="450dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:paddingLeft="5dp"
-        android:textSize="21dp"
+        android:textSize="18sp"
         android:textColor="@color/text1"
         android:text="Alarm Preference"
         android:layout_below="@id/temp" />
 
     <EditText
         android:id="@+id/weekday_alarm"
-        android:layout_width="494dp"
-        android:layout_height="72dp"
+        android:layout_width="450dp"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical|left"
-        android:padding="18dp"
-        android:textSize="21dp"
+        android:padding="10dp"
+        android:textSize="18sp"
         android:textColor="@color/text1"
         android:hint="Weekday HH:MM"
         android:textColorHint="@color/text1"
@@ -50,13 +48,13 @@
         android:layout_below="@id/set_alarm_tip" />
     <EditText
         android:id="@+id/weekend_alarm"
-        android:layout_width="494dp"
-        android:layout_height="72dp"
+        android:layout_width="450dp"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical|left"
-        android:padding="18dp"
-        android:textSize="21dp"
+        android:padding="10dp"
+        android:textSize="18sp"
         android:textColor="@color/text1"
         android:hint="Weekend HH:MM"
         android:textColorHint="@color/text1"
@@ -65,12 +63,12 @@
 
     <Button
         android:id="@+id/saveroomsettings"
-        android:layout_width="494dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="450dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
-        android:padding="18dp"
-        android:textSize="21dp"
+        android:padding="10dp"
+        android:textSize="18sp"
         android:background="#5F82A2"
         android:text="Save Room Changes"
         android:textColor="@color/text2"
@@ -79,13 +77,13 @@
 
     <Button
         android:id="@+id/deleteroom"
-        android:layout_width="494dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="450dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
-        android:padding="18dp"
-        android:textSize="21dp"
-        android:layout_marginBottom="40dp"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/warnrec"
         android:text="Delete Room"
         android:textColor="@color/waringbutton"

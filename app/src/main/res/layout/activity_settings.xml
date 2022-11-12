@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView android:layout_height="match_parent"
+<ScrollView android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android" >
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
 <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -20,49 +25,47 @@
         android:contentDescription="Log out" />
 
 
-
-    <TextView
+    <EditText
         android:id="@+id/username"
-        android:layout_width="494dp"
-        android:layout_height="72dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:gravity="center_vertical|left"
-        android:padding="18dp"
-        android:textSize="21dp"
-        android:textColor="@color/text1"
-        android:background="@drawable/textrec"
+        android:layout_width="450dp"
+        android:layout_height="50dp"
         android:layout_below="@id/logout"
-        android:text="@string/test_test_com" />
-
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/textrec"
+        android:gravity="center_vertical|left"
+        android:padding="10dp"
+        android:hint="@string/test_test_com"
+        android:textColor="@color/text1"
+        android:textSize="18sp" />
 
 
     <EditText
         android:id="@+id/homename"
-        android:layout_width="494dp"
-        android:layout_height="72dp"
+        android:layout_width="450dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/username"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:gravity="center_vertical|left"
-        android:padding="18dp"
-        android:textSize="21dp"
-        android:textColor="@color/text1"
-        android:hint="Home name"
-        android:textColorHint="@color/text1"
+        android:layout_marginTop="15dp"
         android:background="@drawable/textrec"
-        android:layout_below="@id/username" />
+        android:gravity="center_vertical|left"
+        android:hint="Home name"
+        android:padding="10dp"
+        android:textColor="@color/text1"
+        android:textColorHint="@color/text1"
+        android:textSize="18sp" />
 
 
 
     <EditText
         android:id="@+id/city"
-        android:layout_width="494dp"
-        android:layout_height="72dp"
+        android:layout_width="450dp"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="15dp"
         android:gravity="center_vertical|left"
-        android:padding="18dp"
-        android:textSize="21dp"
+        android:padding="10dp"
+        android:textSize="18sp"
         android:textColor="@color/text1"
         android:hint="City of Residence(eg Windsor)"
         android:textColorHint="@color/text1"
@@ -71,39 +74,28 @@
 
     <Button
         android:id="@+id/savehomesettings"
-        android:layout_width="494dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="450dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
-        android:padding="18dp"
-        android:textSize="21dp"
+        android:padding="10dp"
+        android:textSize="18sp"
         android:background="#5F82A2"
         android:text="Save Home Changes"
         android:textColor="@color/text2"
         android:layout_below="@id/city"
         />
 
-    <TextView
-        android:id="@+id/test_tip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/savehomesettings"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="test"
-        android:textSize="16sp"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/roomTab"
         app:tabTextColor="@color/colorAccent"
         app:tabSelectedTextColor="@color/colorPrimary"
         app:tabIndicatorColor="@color/colorAccent"
-        app:tabMode="fixed"
+        app:tabMode="scrollable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/test_tip">
-
-
+        android:layout_below="@+id/savehomesettings">
 
 
     </com.google.android.material.tabs.TabLayout>
@@ -111,8 +103,12 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/roomTab"
+        />
 
 
 </RelativeLayout>
+</LinearLayout>
+
 </ScrollView>

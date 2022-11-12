@@ -7,7 +7,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -24,6 +24,20 @@
             app:srcCompat="@android:drawable/btn_dialog"
             android:contentDescription="Log out" />
 
+        <EditText
+            android:id="@+id/roomname"
+            android:layout_width="450dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textrec"
+            android:gravity="center_vertical|left"
+            android:hint="Room name"
+            android:padding="10dp"
+            android:textColor="@color/text1"
+            android:textColorHint="@color/text1"
+            android:textSize="18sp"
+            android:layout_below="@id/back"/>
 
         <EditText
             android:id="@+id/temp"
@@ -38,7 +52,7 @@
             android:textColor="@color/text1"
             android:textColorHint="@color/text1"
             android:textSize="18sp"
-            android:layout_below="@id/back"/>
+            android:layout_below="@id/roomname"/>
 
 
         <TextView
@@ -111,7 +125,17 @@
             android:layout_below="@id/addroom"
             />
 
-
+        <TextView
+            android:id="@+id/test"
+            android:layout_width="450dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="5dp"
+            android:textSize="18sp"
+            android:textColor="@color/text1"
+            android:text="test"
+            android:layout_below="@id/cancel" />
 
 
     </RelativeLayout>

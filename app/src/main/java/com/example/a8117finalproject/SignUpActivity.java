@@ -90,7 +90,9 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
         complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validator.validate();
+
+                //validator.validate();
+                submitForm();
             }
         });
 
@@ -103,8 +105,8 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
                 .build();
         MediaType mediaType = MediaType.parse("application/json;charset=utf-8");
         String requestBody = buildRequestBody();
-        //RequestBody body = RequestBody.create(mediaType, "{\n    \"username\": \"sam@gmail.com\",\n    \"password\": \"123\",\n    \"location\": \"windsor,canada\",\n    \"alarm_time_weekday\": \"07:00\",\n    \"alarm_time_weekend\": \"09:00\",\n    \"preferred_temp\": 22,\n    \"name\": \"nav\"\n}");
-        RequestBody body = RequestBody.create(mediaType, buildRequestBody());
+        RequestBody body = RequestBody.create(mediaType, "{\n    \"username\": \"vegesna00@gmail.com\",\n    \"password\": \"123\",\n    \"name\": \"nav\",\n    \"location\": \"windsor,canada\",\n    \"room_name\": \"bedroom-1\",\n    \"alarm_time_weekday\": \"07:00\",\n    \"alarm_time_weekend\": \"19:40\",\n    \"preferred_temp\": 22\n}");
+        //RequestBody body = RequestBody.create(mediaType, buildRequestBody());
 
         Request request = new Request.Builder()
                 .url("https://final-project-team-1-section-1.herokuapp.com/user/register")
@@ -113,8 +115,8 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
         try {
             Response response = client.newCall(request).execute();
             JSONObject responseData = new JSONObject(response.body().string());
-            etTest = findViewById(R.id.test_tip);
-            etTest.setText(responseData.toString());
+           etTest = findViewById(R.id.test);
+           etTest.setText(responseData.toString());
 
             //responseData.getJSONObject();
 
