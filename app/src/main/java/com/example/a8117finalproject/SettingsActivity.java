@@ -75,37 +75,26 @@ public class SettingsActivity extends AppCompatActivity {
         etCity = findViewById(R.id.city);
 
 
-
         //get user data from server
-
-            getUserDetails();
-
-
+        getUserDetails();
 
         String[] titleArray = new String[roomCount];
         for (int i = 0; i < roomCount; i++) {
             titleArray[i] = roomsname.get(i);
             fragmentList.add(new SettingFragment());
-
-
-
-
         }
         BasicFragmentAdapter adapter = new BasicFragmentAdapter(getSupportFragmentManager(), fragmentList, titleArray);
         viewPager.setAdapter(adapter);
         mRoomTab.setupWithViewPager(viewPager);
-
-
-
 
         //add room tabs
         //addRoomTab(roomCount);
 
     }
 
-
-
-    public void a8117finalproject(View view) { startActivity(new Intent(this, SettingFragment.class)); }
+    public void a8117finalproject(View view) {
+        startActivity(new Intent(this, SettingFragment.class));
+    }
 
 
     private void getContent() {
@@ -142,7 +131,6 @@ public class SettingsActivity extends AppCompatActivity {
                 JSONArray rooms = responseBody.getJSONArray("room_names");
 
                 getRoomName(rooms);
-
                 setHomeDetails(responseBody);
 
 
