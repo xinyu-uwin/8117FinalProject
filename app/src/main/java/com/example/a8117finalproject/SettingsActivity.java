@@ -35,6 +35,7 @@ import okhttp3.Response;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    //initial the elements needed
     TextView etUsername;
     EditText etHomeName;
     EditText etCity;
@@ -75,37 +76,26 @@ public class SettingsActivity extends AppCompatActivity {
         etCity = findViewById(R.id.city);
 
 
-
         //get user data from server
-
-            getUserDetails();
-
-
+        getUserDetails();
 
         String[] titleArray = new String[roomCount];
         for (int i = 0; i < roomCount; i++) {
             titleArray[i] = roomsname.get(i);
             fragmentList.add(new SettingFragment());
-
-
-
-
         }
         BasicFragmentAdapter adapter = new BasicFragmentAdapter(getSupportFragmentManager(), fragmentList, titleArray);
         viewPager.setAdapter(adapter);
         mRoomTab.setupWithViewPager(viewPager);
-
-
-
 
         //add room tabs
         //addRoomTab(roomCount);
 
     }
 
-
-
-    public void a8117finalproject(View view) { startActivity(new Intent(this, SettingFragment.class)); }
+    public void a8117finalproject(View view) {
+        startActivity(new Intent(this, SettingFragment.class));
+    }
 
 
     private void getContent() {
@@ -131,8 +121,8 @@ public class SettingsActivity extends AppCompatActivity {
         try {
             Response response = client.newCall(request).execute();
             JSONObject responseData = new JSONObject(response.body().string());
-            //etTest = findViewById(R.id.test_tip);
-            //etTest.setText(responseData.toString());
+            etTest = findViewById(R.id.test);
+            etTest.setText(responseData.toString());
 
             String status = responseData.getString("status");
             if ("200".equals(status)) {
@@ -142,7 +132,6 @@ public class SettingsActivity extends AppCompatActivity {
                 JSONArray rooms = responseBody.getJSONArray("room_names");
 
                 getRoomName(rooms);
-
                 setHomeDetails(responseBody);
 
 

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:gravity="center"
+    android:padding="10dp">
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo"
+        >
+    </ImageView>
+
+
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="450dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center_vertical|left"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/text1"
+        android:hint="E-mail"
+        android:textColorHint="@color/text1"
+        android:background="@drawable/textrec"
+        android:layout_below="@id/logo" />
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="450dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:layout_marginBottom="10dp"
+        android:background="#5F82A2"
+        android:text="Next"
+        android:textColor="@color/text2"
+        android:layout_below="@id/email"
+        />
+
+    <TextView
+        android:id="@+id/test"
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:textSize="18sp"
+        android:textColor="@color/text1"
+        android:text="test"
+        android:layout_below="@id/next" />
+
+</RelativeLayout>
+    </LinearLayout>

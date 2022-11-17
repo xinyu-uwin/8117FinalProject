@@ -6,35 +6,51 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/bg">
+
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Back"
+        android:textSize="21sp"
+        android:textColor="@color/text1"
+        android:layout_margin="10dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/back_button"
+        >
+    </Button>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/bg"
 
     android:padding="10dp">
 
-    <ImageButton
-        android:id="@+id/back"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-
-        app:srcCompat="@android:drawable/btn_dialog"
-        android:contentDescription="Back" />
 
 
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo"
+        >
+    </ImageView>
 
 
     <TextView
         android:id="@+id/email"
         android:layout_width="450dp"
         android:layout_height="50dp"
-        android:layout_below="@id/back"
+        android:layout_below="@id/logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="@drawable/textrec"
+        android:background="@drawable/textfixrec"
         android:gravity="center_vertical|left"
         android:padding="10dp"
         android:text="@string/test_test_com"
@@ -57,7 +73,7 @@
         android:textColorHint="@color/text1"
         android:textSize="18sp"
         android:inputType="textPassword"
-        android:hint="Password 8-18 characters"
+        android:hint="Password 8-16 characters"
         android:lines="1"
         android:layout_below="@id/email"
         />
@@ -67,7 +83,7 @@
 
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/homename"
         android:layout_width="450dp"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
@@ -95,7 +111,7 @@
         android:textColor="@color/text1"
         android:textColorHint="@color/text1"
         android:textSize="18sp"
-        android:layout_below="@id/username"/>
+        android:layout_below="@id/homename"/>
 
 
 
@@ -108,7 +124,7 @@
         android:paddingLeft="5dp"
         android:textSize="18sp"
         android:textColor="@color/text1"
-        android:text="Set your first room"
+        android:text="Set up your first room"
         android:layout_below="@id/city" />
 
 
@@ -120,7 +136,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/textrec"
         android:gravity="center_vertical|left"
-        android:hint="Roon name"
+        android:hint="Room name"
         android:padding="10dp"
         android:textColor="@color/text1"
         android:textColorHint="@color/text1"

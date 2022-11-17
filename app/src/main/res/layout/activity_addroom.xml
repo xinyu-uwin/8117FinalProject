@@ -7,22 +7,45 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Back"
+        android:layout_margin="10dp"
+        android:textSize="21sp"
+        android:textColor="@color/text1"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/back_button"
+        ></Button>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add room"
+        android:layout_margin="10dp"
+        android:textSize="21sp"
+        android:textStyle="bold"
+        android:textColor="@color/text1"
+        android:layout_gravity="center"
+        ></TextView>
+
+    </LinearLayout>
 
     <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg"
+        android:gravity="center"
         android:padding="10dp">
 
-        <ImageButton
-            android:id="@+id/back"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_alignParentLeft="true"
 
-            app:srcCompat="@android:drawable/btn_dialog"
-            android:contentDescription="Log out" />
 
         <EditText
             android:id="@+id/roomname"
@@ -37,7 +60,7 @@
             android:textColor="@color/text1"
             android:textColorHint="@color/text1"
             android:textSize="18sp"
-            android:layout_below="@id/back"/>
+            />
 
         <EditText
             android:id="@+id/temp"
