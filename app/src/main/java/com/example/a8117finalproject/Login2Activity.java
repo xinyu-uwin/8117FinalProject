@@ -1,6 +1,8 @@
 package com.example.a8117finalproject;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -13,6 +15,8 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Order;
+import com.mobsandgeeks.saripaar.annotation.Password;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,19 +32,31 @@ import okhttp3.Response;
 
 
 public class Login2Activity extends Activity implements Validator.ValidationListener{
+
+    //initial the elements needed
+    Button back;
     TextView etEmail;
-    @Length(min=8,max=18)
+    @Order(1)
     @NotEmpty
+    @Length(min=8,max = 16, message = "Length should be 8-16")
     EditText etPwd;
     Button login;
     TextView etTest;
-
     String username;
     String pwd;
 
+    //initial the shared preference
+    public static final String FILE_NAME = "userSP";
+    SharedPreferences userSP;
+    SharedPreferences.Editor editor;
 
-
-
+    /**
+     * create the page
+     * initial the validator, data needed
+     * initial the SP
+     * including the back and log in button logic
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,30 +66,61 @@ public class Login2Activity extends Activity implements Validator.ValidationList
                  StrictMode.setThreadPolicy(policy);
             }
 
-
         //initial validator
         Validator validator = new Validator(this);
         validator.setValidationListener(this);
-
         //data initial
+        back = findViewById(R.id.back);
         etEmail = findViewById(R.id.email);
         etPwd = findViewById(R.id.password);
         login = findViewById(R.id.login);
 
+        /**
+         * fill the username from userSP
+         */
+        userSP = this.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE+MODE_APPEND);
+        editor = userSP.edit();
+        username = userSP.getString("username","");
+        etEmail.setText(username);
 
-        //Complete button
+
+        /**
+         * the log in button logic
+         * when clicked, validate the password
+         */
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                validator.validate();
+                //submitForm();
 
-                //validator.validate();
-                submitForm();
+            }
+        });
+
+
+        /**
+         * the back button logic
+         * when clicked, jump back to the log in page 1
+         */
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * @Yang Wang
+                 * here should jump back to the log in page 1
+                 */
+
             }
         });
 
     }
+
+
     /**
-     * submit the form to server
+     * submit the form to server and react according to the response
+     * if status is 200, go to the homepage
+     * if status is 401, password invalid
+     * if status is others, toast error and ask for retry
      */
     private void submitForm() {
         OkHttpClient client = new OkHttpClient().newBuilder()
@@ -88,12 +135,30 @@ public class Login2Activity extends Activity implements Validator.ValidationList
                 .post(body)
                 .build();
         try {
+            //Toast.makeText(this, body.toString(), Toast.LENGTH_LONG).show();
             Response response = client.newCall(request).execute();
             JSONObject responseData = new JSONObject(response.body().string());
            etTest = findViewById(R.id.test);
            etTest.setText(responseData.toString());
 
-            //responseData.getJSONObject();
+            String status = responseData.getString("status");
+            if ("200".equals(status)) {
+                //save the login status to userSP
+                editor.putInt("is_logged_in",1);
+                editor.commit();
+                /**
+                 * @Yang Wang
+                 * Here should jump to the homepage
+                 */
+
+
+            } else if ("401".equals(status)){
+                Toast.makeText(this, "Invalid password, Please try again.", Toast.LENGTH_LONG).show();
+                etPwd.setText("");
+            }
+            else {
+                Toast.makeText(this, "Unknown error, Please try again.", Toast.LENGTH_LONG).show();
+            }
 
 
         } catch (IOException e) {
@@ -104,33 +169,41 @@ public class Login2Activity extends Activity implements Validator.ValidationList
     }
 
     /**
-     * initial the request body
+     * build request body content
+     * @return the request body text
      */
     private String buildRequestBody() {
-        String requestBody = "{\n    \"username\": \""+ username + "\",\n    \"password\": \""+ pwd +"\n}";
+        String requestBody = "{\n    \"username\": \""+username+"\",\n    \"password\":\""+ pwd +"\"\n}";
         return requestBody;
     }
 
+
     /**
-     * get the from content
+     * validation logic
+     * if successful, get the contents from the form, and submit them to server
+     * if not, give the tip of errors
      */
-    private void getContentFromForm() {
-        pwd = etPwd.getText().toString().trim();
-        username = etEmail.getText().toString().trim();
-
-    }
-
-
     @Override
     public void onValidationSucceeded() {
-        //Toast.makeText(this, "Validate success！", Toast.LENGTH_LONG).show();
-        getContentFromForm();
+        pwd = etPwd.getText().toString().trim();
+        username = etEmail.getText().toString().trim();
         submitForm();
     }
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
-        Toast.makeText(this, "Please check the form！", Toast.LENGTH_LONG).show();
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+            //show the error messages
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                // show the other error messages
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
+        }
+
     }
 }
 

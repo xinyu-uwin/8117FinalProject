@@ -35,6 +35,7 @@ import okhttp3.Response;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    //initial the elements needed
     TextView etUsername;
     EditText etHomeName;
     EditText etCity;
@@ -120,8 +121,8 @@ public class SettingsActivity extends AppCompatActivity {
         try {
             Response response = client.newCall(request).execute();
             JSONObject responseData = new JSONObject(response.body().string());
-            //etTest = findViewById(R.id.test_tip);
-            //etTest.setText(responseData.toString());
+            etTest = findViewById(R.id.test);
+            etTest.setText(responseData.toString());
 
             String status = responseData.getString("status");
             if ("200".equals(status)) {

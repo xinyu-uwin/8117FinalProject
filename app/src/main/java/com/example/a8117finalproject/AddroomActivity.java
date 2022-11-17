@@ -1,6 +1,8 @@
 package com.example.a8117finalproject;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -12,7 +14,11 @@ import android.widget.Toast;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Length;
+import com.mobsandgeeks.saripaar.annotation.Max;
+import com.mobsandgeeks.saripaar.annotation.Min;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Order;
+import com.mobsandgeeks.saripaar.annotation.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,28 +32,52 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class AddroomActivity extends Activity implements Validator.ValidationListener{
+public class AddroomActivity extends Activity implements Validator.ValidationListener {
 
+    //initial the elements needed
+    Button back;
+    @Order(1)
     @NotEmpty
-    @Length(min=3,max=15)
+    @Length(min = 3, max = 15, message = "Length should be 3-10.")
     EditText etRoomname;
+    @Order(2)
     @NotEmpty
+    @Min(value = 16, message = "Should between 16-30")
+    @Max(value = 30, message = "Should between 16-30")
     EditText etTemp;
+    @Order(3)
     @NotEmpty
+    @Length(min = 5, max = 5, message = "Format should be \"HH:MM\"")
+    @Pattern(regex = "\\d\\d:\\d\\d", message = "Format should be \"HH:MM\"")
     EditText etWeekdayAlarm;
+    @Order(4)
     @NotEmpty
+    @Length(min = 5, max = 5, message = "Format should be \"HH:MM\"")
+    @Pattern(regex = "\\d\\d:\\d\\d", message = "Format should be \"HH:MM\"")
     EditText etWeekendAlarm;
     Button addRoom;
+    Button cancel;
     TextView etTest;
 
-
+    String username;
     String roomName;
     String temp;
     String weekdayAlarm;
     String weekendAlarm;
 
+    //initial the shared preference
+    public static final String FILE_NAME = "userSP";
+    SharedPreferences userSP;
+    SharedPreferences.Editor editor;
 
-
+    /**
+     * create the page
+     * initial the validator, data needed
+     * initial the SP
+     * including the back, cancel, and add room button logic
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,27 +93,67 @@ public class AddroomActivity extends Activity implements Validator.ValidationLis
         validator.setValidationListener(this);
 
         //data initial
-
+        back = findViewById(R.id.back);
         etRoomname = findViewById(R.id.roomname);
         etTemp = findViewById(R.id.temp);
         etWeekdayAlarm = findViewById(R.id.weekday_alarm);
         etWeekendAlarm = findViewById(R.id.weekend_alarm);
         addRoom = findViewById(R.id.addroom);
+        cancel = findViewById(R.id.cancel);
 
+        /**
+         * fill the username from userSP
+         */
+        userSP = this.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE + MODE_APPEND);
+        editor = userSP.edit();
+        username = userSP.getString("username", "");
 
         //addroom button
         addRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //validator.validate();
-                submitForm();
+                validator.validate();
+                //submitForm();
             }
         });
 
+        /**
+         * the back button logic
+         * when clicked, jump back to settings page
+         */
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * @Yang Wang
+                 * here should jump back to settings page
+                 */
+
+            }
+        });
+
+        /**
+         * the cancel button logic
+         * when clicked, jump back to settings page
+         */
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * @Yang Wang
+                 * here should jump back to settings page
+                 */
+
+            }
+        });
     }
+
     /**
-     * submit the form to server
+     * submit the form to server and react according to the response
+     * if status is 200, go to the homepage
+     * if status is 400, ask for checking
+     * if status is others, toast error and ask for retry
      */
     private void submitForm() {
         OkHttpClient client = new OkHttpClient().newBuilder()
@@ -104,6 +174,25 @@ public class AddroomActivity extends Activity implements Validator.ValidationLis
             etTest.setText(responseData.toString());
 
             //responseData.getJSONObject();
+            //responseData.getJSONObject();
+            String status = responseData.getString("status");
+            if ("200".equals(status)) {
+                //save the login status to userSP
+                editor.putInt("is_logged_in",1);
+                editor.commit();
+                Toast.makeText(this, "Sign up successfully.", Toast.LENGTH_LONG).show();
+                /**
+                 * @Yang Wang
+                 * Here should jump to the homepage
+                 */
+
+
+            } else if ("400".equals(status)){
+                Toast.makeText(this, "User existed or invalid information, Please try again.", Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(this, "Unknown error, Please try again.", Toast.LENGTH_LONG).show();
+            }
 
 
         } catch (IOException e) {
@@ -117,7 +206,7 @@ public class AddroomActivity extends Activity implements Validator.ValidationLis
      * initial the request body
      */
     private String buildRequestBody() {
-        String requestBody = "{\n    \"username\": \"vegesna00@gmail.com\"  ,\n    \"room_name\": \"nav\",\n    \"alarm_time_weekday\": \"07:00\",\n    \"alarm_time_weekend\": \"09:00\",\n    \"preferred_temp\": 22\n}";
+        String requestBody = "{\n    \"username\": \""+username+"\",\n    \"room_name\": \""+roomName+"\",\n    \"alarm_time_weekday\": \""+weekdayAlarm+"\",\n    \"alarm_time_weekend\": \""+weekendAlarm+"\",\n    \"preferred_temp\": "+temp+"\n}";
         return requestBody;
     }
 
@@ -131,21 +220,34 @@ public class AddroomActivity extends Activity implements Validator.ValidationLis
         weekendAlarm = etWeekendAlarm.getText().toString().trim();
     }
 
-
+    /**
+     * validation logic
+     * if successful, get the contents from the form, and submit them to server
+     * if not, give the tip of errors
+     */
     @Override
     public void onValidationSucceeded() {
-        Toast.makeText(this, "Validate success！", Toast.LENGTH_LONG).show();
         getContentFromForm();
         submitForm();
     }
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
-        Toast.makeText(this, "Please check the form！", Toast.LENGTH_LONG).show();
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+            //show the error messages
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                // show the other error messages
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
+        }
+
     }
 
-
-
-
-
 }
+
+
+

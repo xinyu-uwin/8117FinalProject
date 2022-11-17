@@ -2,6 +2,8 @@ package com.example.a8117finalproject;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -12,14 +14,21 @@ import android.widget.Toast;
 
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Digits;
 import com.mobsandgeeks.saripaar.annotation.Length;
+import com.mobsandgeeks.saripaar.annotation.Max;
+import com.mobsandgeeks.saripaar.annotation.Min;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Order;
+import com.mobsandgeeks.saripaar.annotation.Password;
+import com.mobsandgeeks.saripaar.annotation.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -29,37 +38,65 @@ import okhttp3.Response;
 
 
 public class SignUpActivity extends Activity implements Validator.ValidationListener{
+
+    //initial the elements needed
+    Button back;
     TextView etEmail;
-    @Length(min=8,max=18)
+    @Order(1)
     @NotEmpty
+    @Length(min=8,max=18,message = "Length should be 8-16.")
     EditText etPwd;
+    @Order(2)
     @NotEmpty
-    @Length(min=3,max=15)
-    EditText etUsername;
+    @Length(min=3,max=15,message = "Length should be 3-15.")
+    EditText etHomename;
+    @Order(3)
     @NotEmpty
+    @Pattern(regex = ".+,.+", message = "Format should be \"city,country\".")
     EditText etCity;
+    @Order(4)
     @NotEmpty
-    @Length(min=3,max=15)
+    @Length(min=3,max=15,message = "Length should be 3-10.")
     EditText etRoomname;
+    @Order(5)
     @NotEmpty
+    @Min(value = 16,message = "Should between 16-30")
+    @Max(value = 30,message = "Should between 16-30")
     EditText etTemp;
+    @Order(6)
     @NotEmpty
+    @Length(min=5,max=5,message ="Format should be \"HH:MM\"")
+    @Pattern(regex = "\\d\\d:\\d\\d",message ="Format should be \"HH:MM\"")
     EditText etWeekdayAlarm;
+    @Order(7)
     @NotEmpty
+    @Length(min=5,max=5,message ="Format should be \"HH:MM\"")
+    @Pattern(regex = "\\d\\d:\\d\\d",message ="Format should be \"HH:MM\"")
     EditText etWeekendAlarm;
-    Button complete;
+    Button signup;
     TextView etTest;
 
-    String pwd;
     String username;
+    String pwd;
+    String homename;
     String city;
     String roomName;
     String temp;
     String weekdayAlarm;
     String weekendAlarm;
 
+    //initial the shared preference
+    public static final String FILE_NAME = "userSP";
+    SharedPreferences userSP;
+    SharedPreferences.Editor editor;
 
-
+    /**
+     * create the page
+     * initial the validator, data needed
+     * initial the SP
+     * including the back and sign up button logic
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,38 +112,68 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
         validator.setValidationListener(this);
 
         //data initial
+        back = findViewById(R.id.back);
         etEmail = findViewById(R.id.email);
         etPwd = findViewById(R.id.password);
-        etUsername = findViewById(R.id.username);
+        etHomename = findViewById(R.id.homename);
         etCity = findViewById(R.id.city);
         etRoomname = findViewById(R.id.roomname);
         etTemp = findViewById(R.id.temp);
         etWeekdayAlarm = findViewById(R.id.weekday_alarm);
         etWeekendAlarm = findViewById(R.id.weekend_alarm);
-        complete = findViewById(R.id.sign_up_complete);
+        signup = findViewById(R.id.sign_up_complete);
 
+        /**
+         * fill the username from userSP
+         */
+        userSP = this.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE+MODE_APPEND);
+        editor = userSP.edit();
+        username = userSP.getString("username","");
+        etEmail.setText(username);
 
-        //Complete button
-        complete.setOnClickListener(new View.OnClickListener() {
+        /**
+         * the log in button logic
+         * when clicked, validate the form
+         */
+        signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //validator.validate();
-                submitForm();
+                validator.validate();
+
             }
         });
 
+
+        /**
+         * the back button logic
+         * when clicked, jump back to the log in page 1
+         */
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * @Yang Wang
+                 * here should jump back to the log in page 1
+                 */
+
+            }
+        });
     }
+
     /**
-     * submit the form to server
+     * submit the form to server and react according to the response
+     * if status is 200, go to the settings page and refresh
+     * if status is 400, ask for checking
+     * if status is others, toast error and ask for retry
      */
     private void submitForm() {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/json;charset=utf-8");
         String requestBody = buildRequestBody();
-        RequestBody body = RequestBody.create(mediaType, "{\n    \"username\": \"vegesna00@gmail.com\",\n    \"password\": \"123\",\n    \"name\": \"nav\",\n    \"location\": \"windsor,canada\",\n    \"room_name\": \"bedroom-1\",\n    \"alarm_time_weekday\": \"07:00\",\n    \"alarm_time_weekend\": \"19:40\",\n    \"preferred_temp\": 22\n}");
-        //RequestBody body = RequestBody.create(mediaType, buildRequestBody());
+        //RequestBody body = RequestBody.create(mediaType, "{\n    \"username\": \"vegesna00@gmail.com\",\n    \"password\": \"123\",\n    \"name\": \"nav\",\n    \"location\": \"windsor,canada\",\n    \"room_name\": \"bedroom-1\",\n    \"alarm_time_weekday\": \"07:00\",\n    \"alarm_time_weekend\": \"19:40\",\n    \"preferred_temp\": 22\n}");
+        RequestBody body = RequestBody.create(mediaType, buildRequestBody());
 
         Request request = new Request.Builder()
                 .url("https://final-project-team-1-section-1.herokuapp.com/user/register")
@@ -119,7 +186,23 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
            etTest.setText(responseData.toString());
 
             //responseData.getJSONObject();
+            String status = responseData.getString("status");
+            if ("200".equals(status)) {
+                //save the login status to userSP
+                editor.commit();
+                Toast.makeText(this, "Add room successfully.", Toast.LENGTH_LONG).show();
+                /**
+                 * @Yang Wang
+                 * Here should jump to settings page and refresh
+                 */
 
+
+            } else if ("400".equals(status)){
+                Toast.makeText(this, "Room existed or invalid information, Please try again.", Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(this, "Unknown error, Please try again.", Toast.LENGTH_LONG).show();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -132,7 +215,7 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
      * initial the request body
      */
     private String buildRequestBody() {
-        String requestBody = "{\n    \"username\": \""+ username + "\",\n    \"password\": \""+ pwd +"\",\n    \"location\": \"windsor,canada\",\n    \"alarm_time_weekday\": \"07:00\",\n    \"alarm_time_weekend\": \"09:00\",\n    \"preferred_temp\": 22,\n    \"name\": \"nav\"\n}";
+        String requestBody = "{\n    \"username\": \""+username+"\",\n    \"password\": \""+pwd+"\",\n    \"name\": \""+homename+"\",\n    \"location\": \""+city+"\",\n    \"room_name\": \""+roomName+"\",\n    \"alarm_time_weekday\": \""+weekdayAlarm+"\",\n    \"alarm_time_weekend\": \""+weekendAlarm+"\",\n    \"preferred_temp\": "+temp+"\n}";
         return requestBody;
     }
 
@@ -141,7 +224,7 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
      */
     private void getContentFromForm() {
         pwd = etPwd.getText().toString().trim();
-        username = etUsername.getText().toString().trim();
+        homename = etHomename.getText().toString().trim();
         city = etCity.getText().toString().trim();
         roomName = etRoomname.getText().toString().trim();
         temp = etTemp.getText().toString().trim();
@@ -150,16 +233,31 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
     }
 
 
+    /**
+     * validation logic
+     * if successful, get the contents from the form, and submit them to server
+     * if not, give the tip of errors
+     */
     @Override
     public void onValidationSucceeded() {
-        //Toast.makeText(this, "Validate success！", Toast.LENGTH_LONG).show();
         getContentFromForm();
         submitForm();
     }
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
-        Toast.makeText(this, "Please check the form！", Toast.LENGTH_LONG).show();
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+            //show the error messages
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                // show the other error messages
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
+        }
+
     }
 }
 

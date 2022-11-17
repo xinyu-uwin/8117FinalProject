@@ -4,33 +4,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
-    android:padding="10dp">
 
+    android:orientation="vertical"
+    android:background="@color/bg">
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Back"
+        android:layout_margin="10dp"
+        android:textSize="21sp"
+        android:textColor="@color/text1"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/back_button"
+        ></Button>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
+        android:layout_margin="10dp"
     android:gravity="center">
 
-    <ImageButton
-        android:id="@+id/back"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        app:srcCompat="@android:drawable/btn_dialog"
-        android:contentDescription="Back"
 
-    />
 
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="450dp"
-        android:layout_height="120dp"
-        android:src="@color/text1"
-        android:layout_below="@+id/back"></ImageView>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo"
+        >
+    </ImageView>
 
 
 
@@ -40,11 +47,11 @@
         android:layout_height="50dp"
         android:layout_below="@id/logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/textrec"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textfixrec"
         android:gravity="center_vertical|left"
         android:padding="10dp"
-        android:text="@string/test_test_com"
+        android:text="Username"
         android:textColor="@color/text1"
         android:textSize="18sp"
         />
