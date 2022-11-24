@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class BasicFragmentAdapter extends FragmentPagerAdapter {
 
-    String titleArr[];
+    String[] titleArr;
     List<Fragment> mFragmentList;
 
     public BasicFragmentAdapter(FragmentManager fm, List<Fragment> list, String[] titleArr) {
