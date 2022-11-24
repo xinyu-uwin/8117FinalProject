@@ -10,9 +10,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bg">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
     <Button
         android:id="@+id/back"
         android:layout_width="wrap_content"
@@ -25,18 +22,8 @@
         android:drawableLeft="@drawable/back_button"
         ></Button>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add room"
-        android:layout_margin="10dp"
-        android:textSize="21sp"
-        android:textStyle="bold"
-        android:textColor="@color/text1"
-        android:layout_gravity="center"
-        ></TextView>
 
-    </LinearLayout>
+
 
     <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"

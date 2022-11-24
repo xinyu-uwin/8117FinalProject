@@ -1,37 +1,35 @@
 package com.example.a8117finalproject;
 
-import static android.app.PendingIntent.getActivity;
+
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
-import com.mobsandgeeks.saripaar.ValidationError;
-import com.mobsandgeeks.saripaar.Validator;
-import com.mobsandgeeks.saripaar.annotation.Email;
-import com.mobsandgeeks.saripaar.annotation.Length;
-import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mobsandgeeks.saripaar.annotation.Order;
+import androidx.annotation.NonNull;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import com.mobsandgeeks.saripaar.*;
+import com.mobsandgeeks.saripaar.annotation.*;
+import org.json.*;
 import java.io.IOException;
 import java.util.List;
-
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import okhttp3.*;
 
 
 public class Login1Activity extends Activity implements Validator.ValidationListener{
@@ -44,6 +42,7 @@ public class Login1Activity extends Activity implements Validator.ValidationList
     Button next;
     TextView etTest;
     String username;
+    TextView etAgreement;
 
     //initial the shared preference
     public static final String FILE_NAME = "userSP";
@@ -70,12 +69,15 @@ public class Login1Activity extends Activity implements Validator.ValidationList
                  StrictMode.setThreadPolicy(policy);
             }
 
+        setSpan();
+
         //initial validator
         Validator validator = new Validator(this);
         validator.setValidationListener(this);
         //data initial
         etEmail = findViewById(R.id.email);
         next = findViewById(R.id.next);
+        etAgreement = findViewById(R.id.agreement);
 
         //initial the SP
         userSP = this.getSharedPreferences(FILE_NAME,Context.MODE_PRIVATE+MODE_APPEND);
@@ -93,6 +95,8 @@ public class Login1Activity extends Activity implements Validator.ValidationList
                 validator.validate();
             }
         });
+
+
 
     }
 
@@ -187,5 +191,73 @@ public class Login1Activity extends Activity implements Validator.ValidationList
         }
 
     }
+
+    private void setSpan() {
+
+
+        SpannableString spannableString = new SpannableString("Continue means agree with the Terms&Conditions and Privacy Policy");
+
+        spannableString.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                Uri uri = Uri.parse("https://www.uwindsor.ca/graduate-studies/305/applied-computing");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+                //Toast.makeText(getApplicationContext(), "Should jump to the TC and Privacy Policy Page", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(Color.BLUE);// 字体颜色
+                ds.setUnderlineText(false); // 是否有下划线
+            }
+        }, 30, 65, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
+        /*ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
+        // 0 , 8 需要改变字体颜色的index 坐标位置
+        spannableString.setSpan(colorSpan, 30, 65, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+
+        spannableString.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),
+                        "User existed or invalid information, Please try again.",
+                        Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setUnderlineText(false);//当传入true时超链接下会有一条下划线
+            }
+        }, 30, 65,  Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+*/
+           /* SpannableString spannableString = new SpannableString("Agree with the Terms&Conditions and Privacy Policy");
+            //设置下划线文字
+            //    spannableString.setSpan(new UnderlineSpan(), 17, 23, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //设置文字的单击事件
+            spannableString.setSpan(new ClickableSpan() {
+                @Override
+                public void onClick(View widget) {
+
+                }
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setUnderlineText(false);//当传入true时超链接下会有一条下划线
+                }
+            }, 15, 52,  Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //设置文字的前景色
+            spannableString.setSpan(new ForegroundColorSpan(1), 17, 23, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+            spannableString.setSpan(new ForegroundColorSpan(1), 24, 30, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);*/
+
+        ((TextView)findViewById(R.id.agreement)).setText(spannableString);
+            //etAgreement.setText(spannableString);
+        ((TextView)findViewById(R.id.agreement)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView)findViewById(R.id.agreement)).setHighlightColor(Color.TRANSPARENT);
+
+        }
+
+
 }
 

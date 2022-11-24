@@ -24,4 +24,16 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <string name="TCPP">
+        <Data><![CDATA[
+        <h1>Terms & Conditions</h1>
+        <p>This is TC contents</p>
+        <p></p>
+        <h1>Privacy Policy</h1>
+        <p>This is Privacy Policy contents</p>
+
+        ]]></Data>
+    </string>
+
 </resources>
