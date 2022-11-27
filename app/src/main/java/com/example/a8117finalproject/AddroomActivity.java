@@ -42,7 +42,7 @@ public class AddroomActivity extends Activity implements Validator.ValidationLis
     Button cancel;
     TextView etTest;
 
-    String username;
+    public String username;
     String roomName;
     String temp;
     String weekdayAlarm;
