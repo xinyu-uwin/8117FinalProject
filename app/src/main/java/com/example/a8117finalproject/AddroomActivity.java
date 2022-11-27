@@ -40,7 +40,7 @@ public class AddroomActivity extends Activity implements Validator.ValidationLis
     EditText etWeekendAlarm;
     Button addRoom;
     Button cancel;
-    TextView etTest;
+    //TextView etTest;
 
     public String username;
     String roomName;
@@ -153,8 +153,8 @@ public class AddroomActivity extends Activity implements Validator.ValidationLis
         try {
             Response response = client.newCall(request).execute();
             JSONObject responseData = new JSONObject(response.body().string());
-            etTest = findViewById(R.id.test);
-            etTest.setText(responseData.toString());
+            //etTest = findViewById(R.id.test);
+            //etTest.setText(responseData.toString());
 
             //responseData.getJSONObject();
             //responseData.getJSONObject();

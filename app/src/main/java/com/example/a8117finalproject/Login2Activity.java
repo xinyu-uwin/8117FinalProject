@@ -41,7 +41,7 @@ public class Login2Activity extends Activity implements Validator.ValidationList
     @Length(min=8,max = 16, message = "Length should be 8-16")
     EditText etPwd;
     Button login;
-    TextView etTest;
+    //TextView etTest;
     String username;
     String pwd;
 
@@ -138,8 +138,8 @@ public class Login2Activity extends Activity implements Validator.ValidationList
             //Toast.makeText(this, body.toString(), Toast.LENGTH_LONG).show();
             Response response = client.newCall(request).execute();
             JSONObject responseData = new JSONObject(response.body().string());
-           etTest = findViewById(R.id.test);
-           etTest.setText(responseData.toString());
+           //etTest = findViewById(R.id.test);
+           //etTest.setText(responseData.toString());
 
             String status = responseData.getString("status");
             if ("200".equals(status)) {

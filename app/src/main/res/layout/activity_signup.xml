@@ -217,7 +217,7 @@
         android:layout_below="@id/weekend_alarm"
         />
 
-    <TextView
+  <!--  <TextView
         android:id="@+id/test"
         android:layout_width="450dp"
         android:layout_height="wrap_content"
@@ -227,7 +227,7 @@
         android:textSize="18sp"
         android:textColor="@color/text1"
         android:text="test"
-        android:layout_below="@id/sign_up_complete" />
+        android:layout_below="@id/sign_up_complete" />-->
 
 </RelativeLayout>
     </LinearLayout>

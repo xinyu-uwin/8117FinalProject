@@ -97,7 +97,7 @@
         android:layout_below="@id/password"
         />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/test"
         android:layout_width="450dp"
         android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
         android:textSize="18sp"
         android:textColor="@color/text1"
         android:text="test"
-        android:layout_below="@id/login" />
+        android:layout_below="@id/login" />-->
 
 </RelativeLayout>
     </LinearLayout>

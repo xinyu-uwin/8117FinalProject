@@ -40,7 +40,7 @@ public class Login1Activity extends Activity implements Validator.ValidationList
     @Email(message = "Please use a valid email")
     EditText etEmail;
     Button next;
-    TextView etTest;
+    //TextView etTest;
     String username;
     TextView etAgreement;
 
@@ -121,8 +121,8 @@ public class Login1Activity extends Activity implements Validator.ValidationList
         try {
             Response response = client.newCall(request).execute();
             JSONObject responseData = new JSONObject(response.body().string());
-           etTest = findViewById(R.id.test);
-           etTest.setText(responseData.toString());
+           //etTest = findViewById(R.id.test);
+           //etTest.setText(responseData.toString());
 
             String status = responseData.getString("status");
             if ("200".equals(status)) {

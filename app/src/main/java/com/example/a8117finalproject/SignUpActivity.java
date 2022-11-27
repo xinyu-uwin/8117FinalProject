@@ -57,7 +57,7 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
     @Pattern(regex = "\\d\\d:\\d\\d",message ="Format should be \"HH:MM\"")
     EditText etWeekendAlarm;
     Button signup;
-    TextView etTest;
+    //TextView etTest;
 
     String username;
     String pwd;
@@ -165,8 +165,8 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
         try {
             Response response = client.newCall(request).execute();
             JSONObject responseData = new JSONObject(response.body().string());
-           etTest = findViewById(R.id.test);
-           etTest.setText(responseData.toString());
+           //etTest = findViewById(R.id.test);
+           //etTest.setText(responseData.toString());
 
             //responseData.getJSONObject();
             String status = responseData.getString("status");

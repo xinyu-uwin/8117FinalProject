@@ -67,7 +67,7 @@
         android:text="Agree with the Terms&amp;Conditions and Privacy Policy"
         android:layout_below="@id/next" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/test"
         android:layout_width="450dp"
         android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
         android:textSize="18sp"
         android:textColor="@color/text1"
         android:text="test"
-        android:layout_below="@id/agreement" />
+        android:layout_below="@id/agreement" />-->
 
 </RelativeLayout>
     </LinearLayout>
