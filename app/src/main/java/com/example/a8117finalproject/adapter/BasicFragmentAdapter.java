@@ -9,14 +9,12 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.List;
 /**
- * Fragment适配器
+ * Fragment adapter
  *
- * @author llw
- * @date 2021/4/28 15:08
  */
 public class BasicFragmentAdapter extends FragmentPagerAdapter {
 
-    String[] titleArr;
+    String titleArr[];
     List<Fragment> mFragmentList;
 
     public BasicFragmentAdapter(FragmentManager fm, List<Fragment> list, String[] titleArr) {
@@ -43,6 +41,8 @@ public class BasicFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-//        super.destroyItem(container, position, object);
+  super.destroyItem(container, position, object);
     }
+
+
 }

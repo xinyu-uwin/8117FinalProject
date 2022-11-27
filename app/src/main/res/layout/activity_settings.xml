@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
 <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -15,29 +14,46 @@
     android:background="@color/bg"
     android:padding="10dp">
 
-    <ImageButton
+    <Button
+        android:id="@+id/addroom"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:text=" Add Room"
+        android:layout_margin="10dp"
+        android:textSize="21sp"
+        android:textColor="@color/text1"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/add_circle"
+
+        ></Button>
+
+    <Button
         android:id="@+id/logout"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log out"
+        android:layout_alignRight = "@id/username"
+        android:textSize="21sp"
+        android:textColor="@color/waringbutton"
+        android:background="@android:color/transparent"
+        ></Button>
 
-        app:srcCompat="@android:drawable/btn_dialog"
-        android:contentDescription="Log out" />
 
 
-    <EditText
+    <TextView
         android:id="@+id/username"
         android:layout_width="450dp"
         android:layout_height="50dp"
-        android:layout_below="@id/logout"
+        android:layout_below="@id/addroom"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/textrec"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textfixrec"
         android:gravity="center_vertical|left"
         android:padding="10dp"
-        android:hint="@string/test_test_com"
+        android:text="Username"
         android:textColor="@color/text1"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        />
 
 
     <EditText
@@ -87,28 +103,33 @@
         />
 
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/roomTab"
-        app:tabTextColor="@color/colorAccent"
-        app:tabSelectedTextColor="@color/colorPrimary"
-        app:tabIndicatorColor="@color/colorAccent"
-        app:tabMode="scrollable"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/savehomesettings">
-
-
-    </com.google.android.material.tabs.TabLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/roomTab"
-        />
-
 
 </RelativeLayout>
+
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg"
+        android:padding="10dp">
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/roomTab"
+            app:tabTextColor="@color/colorAccent"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabIndicatorColor="@color/colorAccent"
+            app:tabMode="scrollable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/roomTab"
+            />
+    </RelativeLayout>
+
 </LinearLayout>
 
-</ScrollView>
+
+

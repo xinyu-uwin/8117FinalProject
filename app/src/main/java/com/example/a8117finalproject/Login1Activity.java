@@ -200,17 +200,17 @@ public class Login1Activity extends Activity implements Validator.ValidationList
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                Uri uri = Uri.parse("https://www.uwindsor.ca/graduate-studies/305/applied-computing");
+                Uri uri = Uri.parse("https://final-project-team-1-section-1.herokuapp.com/privacynotice");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
-                //Toast.makeText(getApplicationContext(), "Should jump to the TC and Privacy Policy Page", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Taking you to the TC and Privacy Policy Page", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void updateDrawState(@NonNull TextPaint ds) {
                 super.updateDrawState(ds);
                 ds.setColor(Color.BLUE);// 字体颜色
-                ds.setUnderlineText(false); // 是否有下划线
+                ds.setUnderlineText(true); // 是否有下划线
             }
         }, 30, 65, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
 
