@@ -113,9 +113,9 @@
         android:padding="10dp">
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/roomTab"
-            app:tabTextColor="@color/colorAccent"
-            app:tabSelectedTextColor="@color/colorPrimary"
-            app:tabIndicatorColor="@color/colorAccent"
+            app:tabTextColor="@color/text1"
+            app:tabSelectedTextColor="@color/text4"
+            app:tabIndicatorColor="@color/text4"
             app:tabMode="scrollable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

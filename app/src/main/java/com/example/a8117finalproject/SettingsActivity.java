@@ -1,5 +1,6 @@
 package com.example.a8117finalproject;
 
+import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -79,7 +81,7 @@ public class SettingsActivity extends AppCompatActivity implements Validator.Val
 
 
 
-    static int roomCount;
+     int roomCount;
     ArrayList<String> roomsname = new ArrayList<String>();
     List<Fragment> fragmentList = new ArrayList<>();
     static JSONArray roomDetails = new JSONArray();
@@ -131,12 +133,14 @@ public class SettingsActivity extends AppCompatActivity implements Validator.Val
 
         String[] titleArray = new String[roomCount];
         for (int i = 0; i < roomCount; i++) {
+
             titleArray[i] = roomsname.get(i);
             SettingFragment st = new SettingFragment();
             JSONObject roominfo = null;
             String roomtemp = null;
             String roomwda = null;
             String roomwea = null;
+
             try {
                 roominfo = roomDetails.getJSONObject(i);
                 roomtemp = roominfo.getString("preferred_temp");
@@ -152,6 +156,7 @@ public class SettingsActivity extends AppCompatActivity implements Validator.Val
         }
 
         BasicFragmentAdapter adapter = new BasicFragmentAdapter(getSupportFragmentManager(), fragmentList, titleArray);
+        //BasicFragmentAdapter adapter = new BasicFragmentAdapter(getSupportFragmentManager(), fragmentList, mTitles);
 
         viewPager.setAdapter(adapter);
         mRoomTab.setupWithViewPager(viewPager);
@@ -395,4 +400,7 @@ public class SettingsActivity extends AppCompatActivity implements Validator.Val
         city = etCity.getText().toString().trim();
     }
 
+
 }
+
+
