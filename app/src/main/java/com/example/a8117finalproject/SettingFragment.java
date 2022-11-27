@@ -218,6 +218,7 @@ public class SettingFragment extends Fragment implements Validator.ValidationLis
                  */
 
 
+
             } else {
                 Toast.makeText(getContext(), "Unknown error, Please try again.", Toast.LENGTH_LONG).show();
             }

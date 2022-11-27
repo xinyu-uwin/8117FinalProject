@@ -1,5 +1,7 @@
 package com.example.a8117finalproject;
 
+import static java.security.AccessController.getContext;
+
 import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -193,6 +195,7 @@ public class SettingsActivity extends AppCompatActivity implements Validator.Val
                 editor.putInt("is_logged_in",0);
                 editor.commit();
 
+                Toast.makeText(SettingsActivity.this,"Log out successful.", Toast.LENGTH_LONG).show();
                 /**
                  * @Yang Wang
                  * here should jump back to the log in page 1
