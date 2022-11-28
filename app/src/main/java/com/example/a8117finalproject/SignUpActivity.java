@@ -175,13 +175,13 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
             if ("200".equals(status)) {
                 //save the login status to userSP
                 editor.commit();
-                Toast.makeText(this, "Add room successfully.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Sign up successfully.", Toast.LENGTH_LONG).show();
                 /**
                  * @Yang Wang
-                 * Here should jump to settings page and refresh
+                 * Here should jump to Home page and refresh
                  */
 
-                Intent go = new Intent(SignUpActivity.this, SettingsActivity.class);
+                Intent go = new Intent(SignUpActivity.this, HomeActivity.class);
                 startActivity(go);
 
             } else if ("400".equals(status)){

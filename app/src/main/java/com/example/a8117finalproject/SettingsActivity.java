@@ -107,6 +107,23 @@ public class SettingsActivity extends AppCompatActivity implements Validator.Val
         logOut = findViewById(R.id.logout);
         savehc = findViewById(R.id.savehomesettings);
 
+        Button home = (Button) findViewById(R.id.go_home_Setting);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(SettingsActivity.this, HomeActivity.class);
+                startActivity(it);
+            }
+        });
+
+        Button setting = (Button) findViewById(R.id.go_setting_Setting);
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(SettingsActivity.this, SettingsActivity.class);
+                startActivity(it);
+            }
+        });
 
         /**
          * fill the username from userSP

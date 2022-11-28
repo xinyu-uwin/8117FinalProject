@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <view
+        android:id="@+id/view"
+        class="androidx.appcompat.widget.ActionMenuView"
+        android:layout_width="328dp"
+        android:layout_height="64dp"
+        android:background="#F3F3F3"
+        android:fadingEdge="horizontal|vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.071" />
+
+    <view
+        android:id="@+id/view4"
+        class="androidx.appcompat.widget.ActionMenuView"
+        android:layout_width="325dp"
+        android:layout_height="55dp"
+        android:background="#F3F3F3"
+        android:fadingEdge="horizontal|vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view3"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <TextView
+        android:id="@+id/curtainView"
+        android:layout_width="37dp"
+        android:layout_height="34dp"
+        android:text="TextView"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        app:layout_constraintStart_toEndOf="@+id/curtainBar"
+        app:layout_constraintTop_toTopOf="@+id/view4" />
+
+    <view
+        android:id="@+id/view3"
+        class="androidx.appcompat.widget.ActionMenuView"
+        android:layout_width="325dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="100dp"
+        android:background="#F3F3F3"
+        android:fadingEdge="horizontal|vertical"
+        app:circularflow_defaultAngle="45"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.043" />
+
+    <SeekBar
+        android:id="@+id/lightBar"
+        android:layout_width="205dp"
+        android:layout_height="27dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view3"
+        app:layout_constraintVertical_bias="0.571" />
+
+    <SeekBar
+        android:id="@+id/curtainBar"
+        android:layout_width="211dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.631" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/imageFilterView"
+        android:layout_width="34dp"
+        android:layout_height="31dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintEnd_toStartOf="@+id/lightBar"
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:layout_constraintTop_toTopOf="@+id/view3"
+        app:srcCompat="@drawable/ic_baseline_lightbulb_24" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/imageFilterView2"
+        android:layout_width="33dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintEnd_toStartOf="@+id/curtainBar"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toTopOf="@+id/view4"
+        app:srcCompat="@drawable/ic_baseline_blinds_closed_24" />
+
+    <TextView
+        android:id="@+id/Upcomingalarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upcoming Alarm"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:layout_constraintVertical_bias="0.288" />
+
+    <TextView
+        android:id="@+id/timeDisplay"
+        android:layout_width="103dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="32dp"
+        android:text="Time"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintHorizontal_bias="0.062"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/nextAlarm"
+        android:layout_width="58dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="8dp"
+        android:text="Next Alarm"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/lightView"
+        android:layout_width="37dp"
+        android:layout_height="34dp"
+        android:text="TextView"
+        android:textColor="#0C0000"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintEnd_toEndOf="@+id/view3"
+        app:layout_constraintStart_toEndOf="@+id/lightBar"
+        app:layout_constraintTop_toTopOf="@+id/view3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
