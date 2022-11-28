@@ -137,7 +137,7 @@ public class AddroomActivity extends Activity implements Validator.ValidationLis
 
     /**
      * submit the form to server and react according to the response
-     * if status is 200, go to the homepage
+     * if status is 200, go to the settings page
      * if status is 400, ask for checking
      * if status is others, toast error and ask for retry
      */
@@ -169,9 +169,10 @@ public class AddroomActivity extends Activity implements Validator.ValidationLis
                 Toast.makeText(this, "Add room successful.", Toast.LENGTH_LONG).show();
                 /**
                  * @Yang Wang
-                 * Here should jump to the homepage
+                 * Here should jump to the settings page
                  */
-
+                Intent go = new Intent(AddroomActivity.this, SettingsActivity.class);
+                startActivity(go);
 
             } else if ("400".equals(status)){
                 Toast.makeText(this, "User existed or invalid information, Please try again.", Toast.LENGTH_LONG).show();
