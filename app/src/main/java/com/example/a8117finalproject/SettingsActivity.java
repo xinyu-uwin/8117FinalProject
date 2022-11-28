@@ -181,6 +181,8 @@ public class SettingsActivity extends AppCompatActivity implements Validator.Val
                  * here should jump back to the add room page
                  */
 
+                Intent go = new Intent(SettingsActivity.this, AddroomActivity.class);
+                startActivity(go);
             }
         });
 
@@ -201,6 +203,8 @@ public class SettingsActivity extends AppCompatActivity implements Validator.Val
                  * here should jump back to the log in page 1
                  */
 
+                Intent go = new Intent(SettingsActivity.this, Login1Activity.class);
+                startActivity(go);
             }
         });
 
@@ -374,7 +378,8 @@ public class SettingsActivity extends AppCompatActivity implements Validator.Val
                  * @Yang Wang
                  * Here should jump to settings page and refresh
                  */
-
+                Intent go = new Intent(SettingsActivity.this, SettingsActivity.class);
+                startActivity(go);
 
             } else {
                 Toast.makeText(this, "Unknown error, Please try again.", Toast.LENGTH_LONG).show();

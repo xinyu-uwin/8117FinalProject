@@ -2,6 +2,7 @@ package com.example.a8117finalproject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -139,7 +140,8 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
                  * @Yang Wang
                  * here should jump back to the log in page 1
                  */
-
+                Intent go = new Intent(SignUpActivity.this, Login1Activity.class);
+                startActivity(go);
             }
         });
     }
@@ -179,6 +181,8 @@ public class SignUpActivity extends Activity implements Validator.ValidationList
                  * Here should jump to settings page and refresh
                  */
 
+                Intent go = new Intent(SignUpActivity.this, SettingsActivity.class);
+                startActivity(go);
 
             } else if ("400".equals(status)){
                 Toast.makeText(this, "Room existed or invalid information, Please try again.", Toast.LENGTH_LONG).show();

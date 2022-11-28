@@ -2,6 +2,7 @@ package com.example.a8117finalproject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -112,7 +113,8 @@ public class AddroomActivity extends Activity implements Validator.ValidationLis
                  * @Yang Wang
                  * here should jump back to settings page
                  */
-
+                Intent go = new Intent(AddroomActivity.this, SettingsActivity.class);
+                startActivity(go);
             }
         });
 
@@ -127,7 +129,8 @@ public class AddroomActivity extends Activity implements Validator.ValidationLis
                  * @Yang Wang
                  * here should jump back to settings page
                  */
-
+                Intent go = new Intent(AddroomActivity.this, SettingsActivity.class);
+                startActivity(go);
             }
         });
     }

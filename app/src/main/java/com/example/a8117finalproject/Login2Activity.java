@@ -2,6 +2,7 @@ package com.example.a8117finalproject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -110,6 +111,8 @@ public class Login2Activity extends Activity implements Validator.ValidationList
                  * here should jump back to the log in page 1
                  */
 
+                Intent go = new Intent(Login2Activity.this, Login1Activity.class);
+                startActivity(go);
             }
         });
 
@@ -151,6 +154,8 @@ public class Login2Activity extends Activity implements Validator.ValidationList
                  * Here should jump to the homepage
                  */
 
+                Intent go = new Intent(Login2Activity.this, HomeActivity.class);
+                startActivity(go);
 
             } else if ("401".equals(status)){
                 Toast.makeText(this, "Invalid password, Please try again.", Toast.LENGTH_LONG).show();

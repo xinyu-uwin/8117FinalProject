@@ -134,6 +134,8 @@ public class Login1Activity extends Activity implements Validator.ValidationList
                  * Here should jump to the log in page 2
                  */
 
+                Intent go = new Intent(Login1Activity.this, Login2Activity.class);
+                startActivity(go);
 
             } else if ("404".equals(status)){
                 //save the username to userSP
@@ -143,6 +145,8 @@ public class Login1Activity extends Activity implements Validator.ValidationList
                  * @Yang Wang
                  * Here should jump to the sign up page
                  */
+                Intent go = new Intent(Login1Activity.this, SignUpActivity.class);
+                startActivity(go);
             }
             else {
                 Toast.makeText(this, "Unknown error, Please try again.", Toast.LENGTH_LONG).show();
