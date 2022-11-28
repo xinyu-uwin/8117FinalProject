@@ -22,7 +22,7 @@ public class AddroomActivity extends Activity implements Validator.ValidationLis
     Button back;
     @Order(1)
     @NotEmpty
-    @Length(min = 3, max = 15, message = "Length should be 3-10.")
+    @Length(min = 3, max = 15, message = "Length should be 3-15.")
     EditText etRoomname;
     @Order(2)
     @NotEmpty
@@ -122,7 +122,7 @@ public class AddroomActivity extends Activity implements Validator.ValidationLis
          * the cancel button logic
          * when clicked, jump back to settings page
          */
-        back.setOnClickListener(new View.OnClickListener() {
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 /**
