@@ -166,7 +166,7 @@ public class AddroomActivity extends Activity implements Validator.ValidationLis
                 //save the login status to userSP
                 editor.putInt("is_logged_in",1);
                 editor.commit();
-                Toast.makeText(this, "Sign up successfully.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Add room successful.", Toast.LENGTH_LONG).show();
                 /**
                  * @Yang Wang
                  * Here should jump to the homepage
