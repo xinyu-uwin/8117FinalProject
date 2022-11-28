@@ -241,7 +241,7 @@ public class SettingsActivity extends AppCompatActivity implements Validator.Val
                 .build();
         MediaType mediaType = MediaType.parse("application/json;charset=utf-8");
         String requestBody = buildRequestBody();
-        RequestBody body = RequestBody.create(mediaType, "{\n    \"username\":\"vegesna00@gmail.com\"\n}");
+        RequestBody body = RequestBody.create(mediaType, "{\n    \"username\": \""+username+"\"\n}");
         //RequestBody body = RequestBody.create(mediaType, buildRequestBody());
 
         Request request = new Request.Builder()
