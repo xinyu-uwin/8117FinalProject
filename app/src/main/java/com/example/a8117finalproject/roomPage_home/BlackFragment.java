@@ -1,5 +1,6 @@
 package com.example.a8117finalproject.roomPage_home;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,15 +18,19 @@ import androidx.fragment.app.Fragment;
 
 import com.example.a8117finalproject.MainActivity;
 import com.example.a8117finalproject.R;
+import com.example.a8117finalproject.SettingsActivity;
 import com.example.a8117finalproject.roomPage_curtain.AlarmRequest;
 import com.example.a8117finalproject.roomPage_curtain.AlarmResponse;
 import com.example.a8117finalproject.roomPage_curtain.ApiClient;
 import com.example.a8117finalproject.roomPage_curtain.LightRequest;
 import com.example.a8117finalproject.roomPage_curtain.LightResponse;
+import com.example.a8117finalproject.roomPage_curtain.tempRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,6 +42,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -78,8 +87,10 @@ public class BlackFragment<inflater> extends Fragment {
 
     int lightValue = 0;
     int curtainValue = 0;
-    private static String username = "qwe@qq.com";    //this need to be assigned depending on who is logged in
-    private static String room_name = "JOSH";             //this need to be assigned depending on which room
+    private static String name;
+    private static String room;
+    private String username = "qwe@qq.com";    //this need to be assigned depending on who is logged in
+    private String room_name = "JOSH";             //this need to be assigned depending on which room
     private static JSONArray roomDetail;
     int roomNum = 0;
     /**
@@ -88,8 +99,8 @@ public class BlackFragment<inflater> extends Fragment {
     public static BlackFragment newInstance(String userName, String roomName, JSONArray roomDetails) {
         BlackFragment fragment = new BlackFragment();
         Bundle args = new Bundle();
-        username = userName;
-        room_name = roomName;
+        name = userName;
+        room = roomName;
         roomDetail = roomDetails;
         fragment.setArguments(args);
         //fragment.createBlack(param1);
@@ -130,7 +141,8 @@ public class BlackFragment<inflater> extends Fragment {
                 color.setText(change.toCharArray(),0, change.length());
             }
         });*/
-
+        room_name = room;
+        username = name;
 
         //textView = (TextView) view.findViewById(R.id.textView);
 
@@ -169,6 +181,12 @@ public class BlackFragment<inflater> extends Fragment {
                 temp.setText(String.valueOf(tempValue));
             }
         });
+        setTemp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateTemp();
+            }
+        });
 
         getSeekValue(roomNum);
 
@@ -187,6 +205,7 @@ public class BlackFragment<inflater> extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                updateLight(createLightRequest());
             }
         });
 
@@ -205,19 +224,21 @@ public class BlackFragment<inflater> extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                updateLight(createLightRequest());
             }
         });
+        //updateAlarm(createAlarmRequest());
         //curtainSeekbar.setProgress(10);
-        Button change = view.findViewById(R.id.change_light);
+        /*Button change = view.findViewById(R.id.change_light);
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                updateLight(createLightRequest());
-                updateAlarm(createAlarmRequest());
-                getSeekValue(roomNum);
+                //updateLight(createLightRequest());
+                //updateAlarm(createAlarmRequest());
+                //getSeekValue(roomNum);
             }
-        });
+        });*/
 
         return view;
     }
@@ -275,6 +296,7 @@ public class BlackFragment<inflater> extends Fragment {
         lightRequest.setCurtain_on(curtainValue);
         lightRequest.setUsername(username);
         lightRequest.setRoom_name(room_name);
+        //temp.setText(String.valueOf(room_name));
 
         return lightRequest;
     }
@@ -285,8 +307,9 @@ public class BlackFragment<inflater> extends Fragment {
             @Override
             public void onResponse(Call<LightResponse> call, Response<LightResponse> response) {
                 if(response.isSuccessful()){
-                    //Toast.makeText(getActivity(), "Updated Sucessfully"/*response.toString()*/, Toast.LENGTH_LONG).show();
-                    // textView.setText("time "+ response.body().getLight_on());
+                    Toast.makeText(getActivity(), "Updated Successfully", Toast.LENGTH_LONG).show();
+                    assert response.body() != null;
+                    Log.i("time ", response.isSuccessful()+" here");
                 }else{
                     Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
 
@@ -300,6 +323,48 @@ public class BlackFragment<inflater> extends Fragment {
         });
     }
 
+    public void updateTemp(){
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("application/json;charset=utf-8");
+        String requestBody = buildRequestBodysavehc();
+        //RequestBody body = RequestBody.create(mediaType, "{\n    \"username\": \"vegesna00@gmail.com\",\n    \"password\": \"123\",\n    \"name\": \"nav\",\n    \"location\": \"windsor,canada\",\n    \"room_name\": \"bedroom-1\",\n    \"alarm_time_weekday\": \"07:00\",\n    \"alarm_time_weekend\": \"19:40\",\n    \"preferred_temp\": 22\n}");
+        RequestBody body = RequestBody.create(mediaType, buildRequestBodysavehc());
+
+        Request request = new Request.Builder()
+                .url("https://final-project-team-1-section-1.herokuapp.com/user/settings")
+                .post(body)
+                .build();
+        try {
+            okhttp3.Response response = client.newCall(request).execute();
+            JSONObject responseData = new JSONObject(response.body().string());
+
+
+            //responseData.getJSONObject();
+            String status = responseData.getString("status");
+            if ("200".equals(status)) {
+                Toast.makeText(getActivity(), "Update successfully.", Toast.LENGTH_LONG).show();
+
+            } else {
+                Toast.makeText(getActivity(), "Unknown error, Please try again.", Toast.LENGTH_LONG).show();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String buildRequestBodysavehc() {
+        String requestBody = "{" +
+                "\n    \"username\": \""+username+
+                "\",\n    \"room_name\": \""+room_name+
+                "\",\n    \"preferred_temp\": \""+Integer.parseInt(temp.getText().toString())+
+                "\"\n}";
+        return requestBody;
+    }
+
     public AlarmRequest createAlarmRequest(){        //request for light and curtains
         AlarmRequest alarmRequest = new AlarmRequest();
         alarmRequest.setUsername(username);
@@ -311,6 +376,7 @@ public class BlackFragment<inflater> extends Fragment {
     public void updateAlarm(AlarmRequest alarmRequest){
 
         Call<AlarmResponse> alarmResponseCall = ApiClient.getAlarmService().saveUsers(alarmRequest);
+        //temp.setText(String.valueOf(alarmResponseCall.size()));
         alarmResponseCall.enqueue(new Callback<AlarmResponse>() {
             @Override
             public void onResponse(Call<AlarmResponse> call, Response<AlarmResponse> response) {
@@ -367,7 +433,7 @@ public class BlackFragment<inflater> extends Fragment {
 
             @Override
             public void onFailure(Call<AlarmResponse> call, Throwable t) {
-                Toast.makeText(getActivity(), "Request Failed"+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Alarm Request Failed"+t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
         });
 

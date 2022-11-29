@@ -197,7 +197,7 @@
         app:layout_constraintTop_toTopOf="@+id/view3" />
 
 
-    <Button
+    <!--<Button
         android:id="@+id/change_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -206,6 +206,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toBottomOf="@+id/view" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

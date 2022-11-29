@@ -42,6 +42,7 @@ import org.json.JSONObject;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -68,6 +69,7 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
     private ArrayList<Fragment> fragments = new ArrayList<>();
 
     public static final String FILE_NAME = "userSP";
+    private static final String WEATHER_BODY = "9f3c930d48912bb3f53c6b6902a01953";
     SharedPreferences userSP;
     SharedPreferences.Editor editor;
 
@@ -118,11 +120,8 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
         username = userSP.getString("username","");
         getUserDetails();
         getWeatherDetail();
-
-
-        //weather.setBackground(R.id.);
-
-
+        //setWeather();
+        Arrays.sort(roomList);
         TabLayout tl = findViewById(R.id.tab_layout);
         ViewPager2 viewPager2 = findViewById(R.id.pager);
         FragmentAdapter fa = new FragmentAdapter(this);
@@ -134,21 +133,7 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
 
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                /*switch (position) {
 
-                    case 0:
-                        tab.setText("Fragment1");
-                        break;
-                    case 1:
-                        tab.setText("Fragment2");
-                        break;
-                    case 2:
-                        tab.setText("Fragment3");
-                        break;
-                    case 3:
-                        tab.setText("Fragment4");
-                        break;
-                }*/
                 tab.setText(roomList[position]);//roomsname.get(position));
             }
         });
@@ -163,6 +148,23 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
             }
         });*/
     }
+/*
+    private void setWeather() {
+        Log.i("Weather value: ", weatherValue);
+        if(weatherValue.equals("overcast clouds"))
+        {
+            weather.setBackgroundResource(R.drawable.cloudy);
+        }
+        if(weatherValue.equals("sunny"))
+        {
+            weather.setBackgroundResource(R.drawable.weather_sunny);
+        }
+        if(weatherValue.equals("sunny"))
+        {
+            weather.setBackgroundResource(R.drawable.weather_sunny);
+        }
+    }*/
+
     protected void getUserDetails() {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
@@ -219,7 +221,7 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
         command.append("?q=");
         command.append(cityLocate);
         command.append("&appid=");
-        command.append("9f3c930d48912bb3f53c6b6902a01953");
+        command.append(WEATHER_BODY);
 
         StringRequest sRequest = new StringRequest(com.android.volley.Request.Method.POST, command.toString(), new com.android.volley.Response.Listener<String>() {
             @Override
@@ -234,11 +236,23 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
                         JSONObject jData = new JSONObject(response);
                         JSONArray jArray = jData.getJSONArray("weather");
                         JSONObject jWeather = jArray.getJSONObject(0);
-                        String description = jWeather.getString("description");
+                        String description = jWeather.getString("main");
 
                         weatherValue = description;
                         weatherDesc.setText(weatherValue);
                         Log.i("TAG_Weather_II", weatherValue);
+                        if(weatherValue.equals("Clouds"))
+                            weather.setBackgroundResource(R.drawable.cloudy);
+                        if(weatherValue.equals("Rain"))
+                            weather.setBackgroundResource(R.drawable.rain);
+                        if(weatherValue.equals("Snow"))
+                            weather.setBackgroundResource(R.drawable.snow);
+                        if(weatherValue.equals("Drizzle"))
+                            weather.setBackgroundResource(R.drawable.drizzle);
+                        if(weatherValue.equals("Mist"))
+                            weather.setBackgroundResource(R.drawable.mist);
+                        if(weatherValue.equals("Drizzle"))
+                            weather.setBackgroundResource(R.drawable.drizzle);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
