@@ -215,13 +215,13 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
 
     protected void getWeatherDetail() {
         StringBuilder command = new StringBuilder();
-        command.append("https://api.openweathermap.org/data/2.5/weather");
-        command.append("?q=");
+        command.append("https://final-project-team-1-section-1.herokuapp.com/weatherdata/");
+        command.append("?location=");
         command.append(cityLocate);
-        command.append("&appid=");
-        command.append(WEATHER_BODY);
+        //command.append("&appid=");
+        //command.append(WEATHER_BODY);
 
-        StringRequest sRequest = new StringRequest(com.android.volley.Request.Method.POST, command.toString(), new com.android.volley.Response.Listener<String>() {
+        StringRequest sRequest = new StringRequest(com.android.volley.Request.Method.GET, command.toString(), new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("response", response);
@@ -232,9 +232,9 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
                     //for(int i=0; i<jList.length(); i++)
                     {
                         JSONObject jData = new JSONObject(response);
-                        JSONArray jArray = jData.getJSONArray("weather");
-                        JSONObject jWeather = jArray.getJSONObject(0);
-                        String description = jWeather.getString("main");
+                        //JSONArray jArray = jData.getJSONArray("weather");
+                        JSONObject jWeather = jData.getJSONObject("body");
+                        String description = jWeather.getString("climate");
 
                         weatherValue = description;
                         weatherDesc.setText(weatherValue);
