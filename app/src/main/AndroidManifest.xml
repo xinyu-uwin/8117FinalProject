@@ -48,7 +48,8 @@
         </activity>
 
         <activity android:name=".HomeActivity"
-            android:theme="@style/Theme.AppCompat.DayNight"
+
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true">
 
 
