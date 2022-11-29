@@ -168,7 +168,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="70dp"
                 android:background="@android:color/transparent"
-                android:drawableTop="@drawable/Homepage"
+                android:drawableTop="@drawable/homepage"
                 android:textSize="10sp"
                 android:text="Home" />
             <Button
@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="40dp"
                 android:background="@android:color/transparent"
-                android:drawableTop="@drawable/Settings"
+                android:drawableTop="@drawable/settings"
                 android:textSize="10sp"
                 android:text="Settings"/>
     </LinearLayout>
