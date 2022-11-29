@@ -23,9 +23,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.a8117finalproject.R;
 import com.example.a8117finalproject.adapter.FragmentAdapter;
-import com.example.a8117finalproject.roomPage_home.BlackFragment;
+import com.example.a8117finalproject.roomPage_home.roomPageHome;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -39,7 +38,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,7 +63,7 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
     private ViewPager2 vp;
     private PagerAdapter pa;
     private Fragment testFragment;
-    private BlackFragment bf;
+    private roomPageHome bf;
     private ArrayList<Fragment> fragments = new ArrayList<>();
 
     public static final String FILE_NAME = "userSP";
@@ -253,6 +251,8 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
                             weather.setBackgroundResource(R.drawable.mist);
                         if(weatherValue.equals("Drizzle"))
                             weather.setBackgroundResource(R.drawable.drizzle);
+                        if(weatherValue.equals("Haze"))
+                            weather.setBackgroundResource(R.drawable.haze);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

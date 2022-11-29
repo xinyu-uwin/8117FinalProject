@@ -1,7 +1,5 @@
 package com.example.a8117finalproject.roomPage_home;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,17 +12,15 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.a8117finalproject.MainActivity;
 import com.example.a8117finalproject.R;
-import com.example.a8117finalproject.SettingsActivity;
 import com.example.a8117finalproject.roomPage_curtain.AlarmRequest;
 import com.example.a8117finalproject.roomPage_curtain.AlarmResponse;
 import com.example.a8117finalproject.roomPage_curtain.ApiClient;
 import com.example.a8117finalproject.roomPage_curtain.LightRequest;
 import com.example.a8117finalproject.roomPage_curtain.LightResponse;
-import com.example.a8117finalproject.roomPage_curtain.tempRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,10 +48,10 @@ import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link BlackFragment#newInstance} factory method to
+ * Use the {@link roomPageHome#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BlackFragment<inflater> extends Fragment {
+public class roomPageHome<inflater> extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -96,8 +92,8 @@ public class BlackFragment<inflater> extends Fragment {
     /**
      */
     // TODO: Rename and change types and number of parameters
-    public static BlackFragment newInstance(String userName, String roomName, JSONArray roomDetails) {
-        BlackFragment fragment = new BlackFragment();
+    public static roomPageHome newInstance(String userName, String roomName, JSONArray roomDetails) {
+        roomPageHome fragment = new roomPageHome();
         Bundle args = new Bundle();
         name = userName;
         room = roomName;
@@ -146,12 +142,12 @@ public class BlackFragment<inflater> extends Fragment {
 
         //textView = (TextView) view.findViewById(R.id.textView);
 
-        lightSeekBar = (SeekBar) view.findViewById(R.id.lightBar);
-        curtainSeekbar = (SeekBar) view.findViewById(R.id.curtainBar);
-        timeDisplay = (TextView) view.findViewById(R.id.timeDisplay);
-        nextAlarm = (TextView) view.findViewById(R.id.nextAlarm);
-        lightView = (TextView) view.findViewById(R.id.lightView);
-        curtainView = (TextView) view.findViewById(R.id.curtainView);
+        lightSeekBar = view.findViewById(R.id.lightBar);
+        curtainSeekbar = view.findViewById(R.id.curtainBar);
+        timeDisplay = view.findViewById(R.id.timeDisplay);
+        nextAlarm = view.findViewById(R.id.nextAlarm);
+        lightView = view.findViewById(R.id.lightView);
+        curtainView = view.findViewById(R.id.curtainView);
 
         lightView.setText(Integer.toString(lightValue));
         curtainView.setText(Integer.toString(curtainValue));
@@ -227,7 +223,7 @@ public class BlackFragment<inflater> extends Fragment {
                 updateLight(createLightRequest());
             }
         });
-        //updateAlarm(createAlarmRequest());
+        updateAlarm(createAlarmRequest());
         //curtainSeekbar.setProgress(10);
         /*Button change = view.findViewById(R.id.change_light);
         change.setOnClickListener(new View.OnClickListener() {
@@ -252,7 +248,7 @@ public class BlackFragment<inflater> extends Fragment {
             String[] value = roomDetail.get(i).toString().split("\"");
             if(value[3].equals(room_name))
             {
-                temp.setText(value[16].toCharArray(), 1, 2);
+                temp.setText(value[14].toCharArray(), 1, 2);
                 return i;
             }
         }
@@ -276,6 +272,7 @@ public class BlackFragment<inflater> extends Fragment {
         return -1;
     }
 
+    @Nullable
     public static String getName(String valueName, Class<?> c) {
         try{
             Field fe = c.getDeclaredField(valueName);
@@ -360,7 +357,7 @@ public class BlackFragment<inflater> extends Fragment {
         String requestBody = "{" +
                 "\n    \"username\": \""+username+
                 "\",\n    \"room_name\": \""+room_name+
-                "\",\n    \"preferred_temp\": \""+Integer.parseInt(temp.getText().toString())+
+                "\",\n    \"thermostat_temp\": \""+Integer.parseInt(temp.getText().toString())+
                 "\"\n}";
         return requestBody;
     }

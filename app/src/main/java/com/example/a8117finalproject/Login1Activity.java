@@ -132,7 +132,7 @@ public class Login1Activity extends Activity implements Validator.ValidationList
            //etTest = findViewById(R.id.test);
            //etTest.setText(responseData.toString());
             String status = responseData.getString("status");
-            Toast.makeText(this, status, Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, status, Toast.LENGTH_LONG).show();
             if ("200".equals(status)) {
                 //save the username to userSP
                 editor.putString("username",etEmail.getText().toString());
@@ -163,7 +163,7 @@ public class Login1Activity extends Activity implements Validator.ValidationList
             e.printStackTrace();
         } catch (JSONException e) {
 
-            Toast.makeText(this, "200", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "200", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
