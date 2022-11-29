@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:fillViewport="true">
 
     <ScrollView
@@ -95,7 +95,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/textrec"
                     android:gravity="center_vertical|left"
-                    android:hint="City of Residence(eg Windsor)"
+                    android:hint="City,Country"
                     android:padding="10dp"
                     android:textColor="@color/text1"
                     android:textColorHint="@color/text1"
@@ -153,23 +153,32 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
+        android:paddingTop="10dp"
         android:layout_marginStart="0dp"
         android:layout_marginBottom="0dp"
         android:background="#FFFFFF"
-        android:gravity="bottom"
+        android:gravity="center"
         android:orientation="horizontal">
 
             <Button
                 android:id="@+id/go_home_setting"
-                android:layout_width="50dp"
-                android:layout_height="64dp"
-                android:layout_marginRight="100dp"
-                android:layout_marginLeft="105dp"
-                android:background="@drawable/home_page" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="70dp"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/Homepage"
+                android:textSize="10sp"
+                android:text="Home" />
             <Button
                 android:id="@+id/go_setting_setting"
-                android:layout_width="50dp"
-                android:layout_height="64dp"
-                android:background="@drawable/setting_page"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="40dp"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/Settings"
+                android:textSize="10sp"
+                android:text="Settings"/>
     </LinearLayout>
 </RelativeLayout>
