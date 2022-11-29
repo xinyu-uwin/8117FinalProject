@@ -10,12 +10,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.a8117finalproject.R;
 import com.example.a8117finalproject.adapter.FragmentAdapter;
 import com.example.a8117finalproject.roomPage_home.BlackFragment;
@@ -23,11 +30,16 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Length;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Order;
+import com.mobsandgeeks.saripaar.annotation.Pattern;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +51,14 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class HomeActivity extends AppCompatActivity implements Validator.ValidationListener {
+
+    @Order(1)
+    @NotEmpty
+    @Length(min=3,max=15,message = "Length should be 3-15.")
+    EditText etHomeName;
+    @Order(2)
+    @NotEmpty
+    @Pattern(regex = ".+,.+", message = "Format should be \"city,country\".")
     private TextView color;
     private TabLayout tb;
     private ViewPager2 vp;
@@ -52,10 +72,16 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
     SharedPreferences.Editor editor;
 
     int roomCount;
-    ArrayList<String> roomsname = new ArrayList<String>();
-    List<Fragment> fragmentList = new ArrayList<>();
     static JSONArray roomDetails = new JSONArray();
     Bundle[] bundles = new Bundle[roomCount];
+    TextView city;
+    ImageView weather;
+    TextView weatherDesc;
+
+    private String[] roomList;
+
+    String cityLocate;
+    String weatherValue;
 
     private String[] title = new String[]{"room1", "room2", "room3", "room4", "room5"};
     private String[] value = new String[]{
@@ -69,8 +95,6 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
 
 
     static String username;
-    String homeName;
-    String city;
 
 
 
@@ -79,34 +103,30 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        //color = (TextView) findViewById(R.layout.fragment_black.color_black);
-        //color = ()
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
 
-        Button home = (Button) findViewById(R.id.go_home);
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent it = new Intent(HomeActivity.this, HomeActivity.class);
-                startActivity(it);
-            }
-        });
-        Button setting = (Button) findViewById(R.id.go_setting);
-        setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent it = new Intent(HomeActivity.this, SettingsActivity.class);
-                startActivity(it);
-            }
-        });
+        setBottomButton();
+        city = (TextView)findViewById(R.id.city_name);
+        weather = (ImageView)findViewById(R.id.weather_photo);
+        weatherDesc = (TextView)findViewById(R.id.weather_value);
+
         userSP = this.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         editor = userSP.edit();
         username = userSP.getString("username","");
-        //getUserDetails();
+        getUserDetails();
+        getWeatherDetail();
+
+
+        //weather.setBackground(R.id.);
+
 
         TabLayout tl = findViewById(R.id.tab_layout);
         ViewPager2 viewPager2 = findViewById(R.id.pager);
         FragmentAdapter fa = new FragmentAdapter(this);
-        fa.setValue(title.length, value, backColor);
+        fa.setValue(roomList.length, roomList, username, roomDetails);
         viewPager2.setAdapter(fa);
 
         viewPager2.setOffscreenPageLimit(1);
@@ -129,7 +149,7 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
                         tab.setText("Fragment4");
                         break;
                 }*/
-                tab.setText(title[position]);//roomsname.get(position));
+                tab.setText(roomList[position]);//roomsname.get(position));
             }
         });
         tab.attach();
@@ -143,9 +163,7 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
             }
         });*/
     }
-
-/*
-    private void getUserDetails() {
+    protected void getUserDetails() {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/json;charset=utf-8");
@@ -160,8 +178,8 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
         try {
             Response response = client.newCall(request).execute();
             JSONObject responseData = new JSONObject(response.body().string());
-            //etTest = findViewById(R.id.test);
-            //etTest.setText(responseData.toString());
+            //Toast.makeText(this, responseData.toString(), Toast.LENGTH_LONG).show();
+            //Log.i("responseData", responseData.toString());
 
             String status = responseData.getString("status");
             if ("200".equals(status)) {
@@ -169,18 +187,24 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
                 JSONObject responseBody = new JSONObject(responseData.getString("body"));
                 roomCount = responseBody.getInt("rooms_count");
                 JSONArray rooms = responseBody.getJSONArray("room_names");
-
-                getRoomName(rooms);
-                //setHomeDetails(responseBody);
+                roomList = new String[rooms.length()];
+                for(int i=0; i<rooms.length(); i++)
+                {
+                    roomList[i] = rooms.get(i).toString();
+                }
                 roomDetails = responseBody.getJSONArray("room_list");
+                cityLocate = responseBody.getString("location");
+                Log.i("location: ", cityLocate);
+                Log.i("City info", cityLocate);
+                city.setText(cityLocate.split(",")[0]);
 
 
-            } else {
+        } else {
                 Toast getUserDataToast = Toast.makeText(getApplicationContext(), "Fail to get user dara. Try again", Toast.LENGTH_SHORT);
                 getUserDataToast.show();
             }
 
-            //responseData.getJSONObject();
+            //responseData.getJSONObject();*/
 
 
         } catch (IOException | JSONException e) {
@@ -188,191 +212,85 @@ public class HomeActivity extends AppCompatActivity implements Validator.Validat
         }
     }
 
+
+    protected void getWeatherDetail() {
+        StringBuilder command = new StringBuilder();
+        command.append("https://api.openweathermap.org/data/2.5/weather");
+        command.append("?q=");
+        command.append(cityLocate);
+        command.append("&appid=");
+        command.append("9f3c930d48912bb3f53c6b6902a01953");
+
+        StringRequest sRequest = new StringRequest(com.android.volley.Request.Method.POST, command.toString(), new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("response", response);
+                //StringBuilder detail = new StringBuilder();
+                try {
+                    StringBuilder info = new StringBuilder();
+                    //JSONObject jList = new JSONObject(response).getJSONObject("list");
+                    //for(int i=0; i<jList.length(); i++)
+                    {
+                        JSONObject jData = new JSONObject(response);
+                        JSONArray jArray = jData.getJSONArray("weather");
+                        JSONObject jWeather = jArray.getJSONObject(0);
+                        String description = jWeather.getString("description");
+
+                        weatherValue = description;
+                        weatherDesc.setText(weatherValue);
+                        Log.i("TAG_Weather_II", weatherValue);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue rQueue = Volley.newRequestQueue(getApplicationContext());
+        rQueue.add(sRequest);
+
+        //Log.i("TAG_Weather_II", weatherValue);
+    }
+
     private String buildRequestBody() {
         String requestBody = "{\n    \"username\": \""+ username +"\n}";
         return requestBody;
     }
 
-
-    /*private void setHomeDetails(JSONObject a) throws JSONException {
-
-        homeName = a.getString("name");
-        city= a.getString("location");
-
-        etHomeName = findViewById(R.id.homename);
-        etHomeName.setText(homeName);
-
-        etCity = findViewById(R.id.city);
-        etCity.setText(city);
-
-
-    }*/
-
-    /*private void getRoomName(JSONArray a) throws JSONException {
-
-        for(int i = 0; i< a.length();i++) {
-            roomsname.add(i, a.getString(i));
-        }
-
-    }
-
-
-
-
-
-
-
-    /**
-     * validation logic
-     * if successful, get the contents from the form, and submit them to server
-     * if not, give the tip of errors
-     */
     @Override
     public void onValidationSucceeded() {
-        //getContentFromForm();
-        //submitForm();
+
     }
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
-        for (ValidationError error : errors) {
-            View view = error.getView();
-            String message = error.getCollatedErrorMessage(this);
-            //show the error messages
-            if (view instanceof EditText) {
-                ((EditText) view).setError(message);
-            } else {
-                // show the other error messages
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-            }
-        }
+
     }
 
-    /**
-     * submit the form to server and react according to the response
-     * if status is 200, go to the settings page and refresh
-     * if status is others, toast error and ask for retry
-     */
-    /*private void submitForm() {
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
-        MediaType mediaType = MediaType.parse("application/json;charset=utf-8");
-        String requestBody = buildRequestBodysavehc();
-        //RequestBody body = RequestBody.create(mediaType, "{\n    \"username\": \"vegesna00@gmail.com\",\n    \"password\": \"123\",\n    \"name\": \"nav\",\n    \"location\": \"windsor,canada\",\n    \"room_name\": \"bedroom-1\",\n    \"alarm_time_weekday\": \"07:00\",\n    \"alarm_time_weekend\": \"19:40\",\n    \"preferred_temp\": 22\n}");
-        RequestBody body = RequestBody.create(mediaType, buildRequestBodysavehc());
+    private void setBottomButton() {
 
-        Request request = new Request.Builder()
-                .url("https://final-project-team-1-section-1.herokuapp.com/user/settings")
-                .post(body)
-                .build();
-        try {
-            Response response = client.newCall(request).execute();
-            JSONObject responseData = new JSONObject(response.body().string());
-
-
-            //responseData.getJSONObject();
-            String status = responseData.getString("status");
-            if ("200".equals(status)) {
-
-                Toast.makeText(this, "Update successfully.", Toast.LENGTH_LONG).show();
-                /**
-                 * @Yang Wang
-                 * Here should jump to settings page and refresh
-                 */
-                /*Intent go = new Intent(HomeActivity.this, SettingsActivity.class);
-                startActivity(go);
-
-            } else {
-                Toast.makeText(this, "Unknown error, Please try again.", Toast.LENGTH_LONG).show();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * initial the request body
-     */
-    /*private String buildRequestBodysavehc() {
-        String requestBody = "{\n    \"username\": \""+username+"\",\n    \"name\": \""+homeName+"\",\n    \"location\": \""+city+"\"\n}";
-        return requestBody;
-    }
-
-    /**
-     * get the from content
-     */
-    /*private void getContentFromForm() {
-        homeName = etHomeName.getText().toString().trim();
-        city = etCity.getText().toString().trim();
-    }*/
-        /*super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        //tabTester();
-        //onViewCreated(this, );
-        tb = findViewById(R.id.tab_layout);
-        //vp = findViewById(R.id.pager);
-
-        for(int i=0; i<title.length; i++)
-        {
-            tb.addTab(tb.newTab().setText(title[i]));
-            fragments.add(TabFragment.newInstance(title[i]));
-        }
-
-
-        /*new TabLayoutMediator(tb, vp,
-                (tab, position) -> tab.setText(title[position])
-        ).attach();*/
-
-        /*vp.setAdapter(new FragmentStateAdapter(getSupportFragmentManager(), getLifecycle()) {
-            @NonNull
+        Button home = (Button) findViewById(R.id.go_home);
+        home.setOnClickListener(new View.OnClickListener() {
             @Override
-            public Fragment createFragment(int position) {
-                return FragmentAdapter.newInstance(title[position]);
+            public void onClick(View view) {
+                Intent it = new Intent(HomeActivity.this, HomeActivity.class);
+                startActivity(it);
             }
-
+        });
+        Button setting = (Button) findViewById(R.id.go_setting);
+        setting.setOnClickListener(new View.OnClickListener() {
             @Override
-            public int getItemCount() {
-                return title.length;
+            public void onClick(View view) {
+                Intent it = new Intent(HomeActivity.this, SettingsActivity.class);
+                startActivity(it);
             }
         });
 
-        //vp.registerOnPageChangeCallback(changeCallBack);
     }
-    /*public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        TabLayout tabLayout = view.findViewById(R.id.tab_layout);
-        //ViewPager2 viewPager = view.findViewById(R.id.pager);
-        new TabLayoutMediator(tabLayout, viewPager,
-                (tab, position) -> tab.setText("OBJECT " + (position + 1))
-        ).attach();
-    }
-    /*private void tabTester() {
-        tb = (TabLayout) findViewById(R.id.tab_layout);
-        vp = (ViewPager2) findViewById(R.id.pager);
-        for(int i=0; i<title.length; i++)
-        {
-            fragments.add(new Fragment());
-            tb.addTab(tb.newTab());
-        }
-        tb.setupWithViewPager(vp, false);
-        pa = new PagerAdapter() {
-            @Override
-            public int getCount() {
-                return 0;
-            }
-
-            @Override
-            public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-                return false;
-            }
-        };
-        vp.setAdapter(pa);
-        for(int i=0; i<title.length; i++)
-        {
-            tb.getTabAt(i).setText(title[i]);
-        }
-    }*/
 }
 

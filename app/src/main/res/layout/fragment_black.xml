@@ -6,6 +6,48 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:id="@+id/temp_set"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/temp_down"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:padding="0dp"
+                android:text="-"/>
+
+            <TextView
+                android:id="@+id/temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:textSize="50dp"
+                android:text="0"/>
+
+            <Button
+                android:id="@+id/temp_up"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="0dp"
+                android:text="+"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/set_temp"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:padding="0dp"
+            android:text="Set"/>
+    </LinearLayout>
     <view
         android:id="@+id/view"
         class="androidx.appcompat.widget.ActionMenuView"
@@ -50,11 +92,11 @@
         class="androidx.appcompat.widget.ActionMenuView"
         android:layout_width="325dp"
         android:layout_height="55dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="110dp"
         android:background="#F3F3F3"
         android:fadingEdge="horizontal|vertical"
         app:circularflow_defaultAngle="45"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/temp_set"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.534"
         app:layout_constraintStart_toStartOf="parent"
@@ -149,5 +191,17 @@
         app:layout_constraintEnd_toEndOf="@+id/view3"
         app:layout_constraintStart_toEndOf="@+id/lightBar"
         app:layout_constraintTop_toTopOf="@+id/view3" />
+
+
+    <Button
+        android:id="@+id/change_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="change"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,6 +23,9 @@ import com.example.a8117finalproject.roomPage_curtain.ApiClient;
 import com.example.a8117finalproject.roomPage_curtain.LightRequest;
 import com.example.a8117finalproject.roomPage_curtain.LightResponse;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,6 +60,7 @@ public class BlackFragment<inflater> extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String mParam3;
 
     private SeekBar lightSeekBar;
     private SeekBar curtainSeekbar;
@@ -66,27 +70,27 @@ public class BlackFragment<inflater> extends Fragment {
     private TextView lightView;
     private TextView curtainView;
 
+    private TextView temp;
+    private Button tempUp;
+    private Button tempDown;
+    private Button setTemp;
+
 
     int lightValue = 0;
     int curtainValue = 0;
-    private String username = "qwe@qq.com";    //this need to be assigned depending on who is logged in
-    private String room_name = "JOSH";             //this need to be assigned depending on which room
+    private static String username = "qwe@qq.com";    //this need to be assigned depending on who is logged in
+    private static String room_name = "JOSH";             //this need to be assigned depending on which room
+    private static JSONArray roomDetail;
+    int roomNum = 0;
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * //@param param2 Parameter 2.
-     * @return A new instance of fragment BlackFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BlackFragment newInstance(String param1, String param2) {
+    public static BlackFragment newInstance(String userName, String roomName, JSONArray roomDetails) {
         BlackFragment fragment = new BlackFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        //colorValue = param1;
-        args.putString(ARG_PARAM2, param2);
-        //backColor = param2;
+        username = userName;
+        room_name = roomName;
+        roomDetail = roomDetails;
         fragment.setArguments(args);
         //fragment.createBlack(param1);
         return fragment;
@@ -140,6 +144,34 @@ public class BlackFragment<inflater> extends Fragment {
         lightView.setText(Integer.toString(lightValue));
         curtainView.setText(Integer.toString(curtainValue));
 
+        temp = view.findViewById(R.id.temp);
+        tempUp = view.findViewById(R.id.temp_up);
+        tempDown = view.findViewById(R.id.temp_down);
+        setTemp = view.findViewById(R.id.set_temp);
+        try {
+            roomNum = setTemperature();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        tempUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int tempValue = Integer.parseInt(temp.getText().toString());
+                tempValue++;
+                temp.setText(String.valueOf(tempValue));
+            }
+        });
+        tempDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int tempValue = Integer.parseInt(temp.getText().toString());
+                tempValue--;
+                temp.setText(String.valueOf(tempValue));
+            }
+        });
+
+        getSeekValue(roomNum);
+
         lightSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -155,7 +187,6 @@ public class BlackFragment<inflater> extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                updateLight(createLightRequest());
             }
         });
 
@@ -174,13 +205,40 @@ public class BlackFragment<inflater> extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                updateLight(createLightRequest());
             }
         });
-        curtainSeekbar.setProgress(10);
-        updateAlarm(createAlarmRequest());
+        //curtainSeekbar.setProgress(10);
+        Button change = view.findViewById(R.id.change_light);
+        change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                updateLight(createLightRequest());
+                updateAlarm(createAlarmRequest());
+                getSeekValue(roomNum);
+            }
+        });
 
         return view;
+    }
+
+    private int setTemperature() throws JSONException {
+
+        //*Log.i("Room info", roomDetail.get(0).toString());
+        int roomNum = 0;
+        for(int i=0; i<roomDetail.length(); i++)
+        {
+            String[] value = roomDetail.get(i).toString().split("\"");
+            if(value[3].equals(room_name))
+            {
+                temp.setText(value[16].toCharArray(), 1, 2);
+                return i;
+            }
+        }
+
+        /*String[] value = roomDetail.get(0).toString().split("\"");
+        temp.setText(value[3]);*/
+        return -1;
     }
 
     /*public static BlackFragment getInstance(Object object) {
@@ -211,6 +269,7 @@ public class BlackFragment<inflater> extends Fragment {
 
     public LightRequest createLightRequest(){        //request for light and curtains
         System.out.println("Light = "+ lightValue);
+        //temp.setText(String.valueOf(lightValue));
         LightRequest lightRequest = new LightRequest();
         lightRequest.setLight_on(lightValue);
         lightRequest.setCurtain_on(curtainValue);
@@ -226,7 +285,7 @@ public class BlackFragment<inflater> extends Fragment {
             @Override
             public void onResponse(Call<LightResponse> call, Response<LightResponse> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(getActivity(), /*"Updated Sucessfully"*/response.toString(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(), "Updated Sucessfully"/*response.toString()*/, Toast.LENGTH_LONG).show();
                     // textView.setText("time "+ response.body().getLight_on());
                 }else{
                     Toast.makeText(getActivity(), "Request Failed", Toast.LENGTH_LONG).show();
@@ -256,7 +315,7 @@ public class BlackFragment<inflater> extends Fragment {
             @Override
             public void onResponse(Call<AlarmResponse> call, Response<AlarmResponse> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(getActivity(), "Updated Sucessfully", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(), "Updated Sucessfully", Toast.LENGTH_LONG).show();
 
                     Log.d("test", "yes");
                     String jsonStr = response.body().getBody().toString();
@@ -404,5 +463,25 @@ public class BlackFragment<inflater> extends Fragment {
             e.printStackTrace();
             return "";
         }
+    }
+    private void getSeekValue(int roomNum) {
+
+        String light = null;
+        String curtain = null;
+        try {
+            light = roomDetail.get(roomNum).toString().split("\"")[10];
+            light = String.valueOf(light.toCharArray(), 1, light.toCharArray().length-2);
+            curtain = roomDetail.get(roomNum).toString().split("\"")[12];
+            //temp.setText(light);
+            curtain = String.valueOf(curtain.toCharArray(), 1, curtain.toCharArray().length-2);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        lightValue = Integer.parseInt(light);
+        curtainValue = Integer.parseInt(curtain);
+        lightSeekBar.setProgress(lightValue);
+        curtainSeekbar.setProgress(curtainValue);
+        lightView.setText(Integer.toString(lightValue));
+        curtainView.setText(Integer.toString(curtainValue));
     }
 }

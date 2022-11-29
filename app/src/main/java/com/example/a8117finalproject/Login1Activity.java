@@ -131,8 +131,8 @@ public class Login1Activity extends Activity implements Validator.ValidationList
             JSONObject responseData = new JSONObject(response.body().string());
            //etTest = findViewById(R.id.test);
            //etTest.setText(responseData.toString());
-
             String status = responseData.getString("status");
+            Toast.makeText(this, status, Toast.LENGTH_LONG).show();
             if ("200".equals(status)) {
                 //save the username to userSP
                 editor.putString("username",etEmail.getText().toString());
@@ -162,6 +162,8 @@ public class Login1Activity extends Activity implements Validator.ValidationList
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
+
+            Toast.makeText(this, "", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }

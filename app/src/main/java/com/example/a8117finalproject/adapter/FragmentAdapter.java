@@ -9,25 +9,30 @@ import com.example.a8117finalproject.roomPage_home.BlackFragment;
 import com.example.a8117finalproject.roomPage_home.RedFragment;
 import com.example.a8117finalproject.roomPage_home.YellowFragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 public class FragmentAdapter extends FragmentStateAdapter {
     public static int roomNumber = 0;
-    private static String[] color;
-    private static String[] backColor;
+    String[] roomList;
+    String userName;
+    JSONArray roomDetails;
     public FragmentAdapter(@NonNull FragmentActivity fragmentActivity) {//,} int length, String[] color) {
         super(fragmentActivity);
         //roomNumber = length;
         //this.color = color;
     }
-    public void setValue(int length, String[] colorValue, String[] backColor) {
-        roomNumber = length;
-        color = colorValue;
-        this.backColor = backColor;
+    public void setValue(int roomNumber, String[] roomList, String userName, JSONArray roomDetails) {
+        this.roomNumber = roomNumber;
+        this.roomList = roomList;
+        this.userName = userName;
+        this.roomDetails = roomDetails;
     }
     @NonNull
     @Override
     public Fragment createFragment(int position) {
         BlackFragment bf =  new BlackFragment();
-        BlackFragment.newInstance(color[position], backColor[position]);
+        BlackFragment.newInstance(userName, roomList[position], roomDetails);
         return bf;
         /*switch(position%3)
         {
@@ -60,11 +65,6 @@ public class FragmentAdapter extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
         return roomNumber;
-    }
-
-    public void update(String[] color) {
-        this.color = color;
-        notifyDataSetChanged();
     }
 
     @Override

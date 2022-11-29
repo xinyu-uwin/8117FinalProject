@@ -107,7 +107,7 @@ public class SettingsActivity extends AppCompatActivity implements Validator.Val
         logOut = findViewById(R.id.logout);
         savehc = findViewById(R.id.savehomesettings);
 
-        Button home = (Button) findViewById(R.id.go_home_Setting);
+        Button home = (Button) findViewById(R.id.go_home_setting);
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,7 +116,7 @@ public class SettingsActivity extends AppCompatActivity implements Validator.Val
             }
         });
 
-        Button setting = (Button) findViewById(R.id.go_setting_Setting);
+        Button setting = (Button) findViewById(R.id.go_setting_setting);
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -260,6 +260,7 @@ public class SettingsActivity extends AppCompatActivity implements Validator.Val
         try {
             Response response = client.newCall(request).execute();
             JSONObject responseData = new JSONObject(response.body().string());
+            //Toast.makeText(this, response.toString(), Toast.LENGTH_LONG).show();
             //etTest = findViewById(R.id.test);
             //etTest.setText(responseData.toString());
 
